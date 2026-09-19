@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Galaxy - Customizer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #010003;
+      color: #fff;
+    }
+
+    /* MÀN HÌNH BẮT ĐẦU */
+    #landing-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 999;
+      background: radial-gradient(circle at center, #1a0022 0%, #010003 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    #landing-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .card {
+      background: rgba(25, 0, 30, 0.65);
+      border: 1px solid rgba(255, 0, 102, 0.5);
+      backdrop-filter: blur(15px);
+      padding: 40px 30px;
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: 0 0 50px rgba(230, 0, 90, 0.4);
+      max-width: 340px;
+      width: 85%;
+    }
+    .card h1 {
+      font-size: 1.7rem;
+      margin-bottom: 10px;
+      color: #fff;
+      text-shadow: 0 0 15px #ff0066;
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: #ddd;
+      margin-bottom: 25px;
+    }
+    .btn-enter {
+      background: linear-gradient(90deg, #ff0066, #9900aa);
+      border: none;
+      color: white;
+      padding: 12px 30px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 0 25px rgba(255, 0, 102, 0.7);
+      transition: transform 0.2s;
+    }
+    .btn-enter:hover {
+      transform: scale(1.06);
+    }
+
+    /* BẢNG ĐIỀU KHIỂN TÙY CHỈNH (CONTROL PANEL) */
+    #control-panel {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      background: rgba(20, 0, 25, 0.75);
+      border: 1px solid rgba(255, 0, 102, 0.4);
+      backdrop-filter: blur(12px);
+      padding: 15px 20px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(255, 0, 102, 0.25);
+      width: 240px;
+    }
+    .control-group {
+      margin-bottom: 12px;
+    }
+    .control-group:last-child {
+      margin-bottom: 0;
+    }
+    .control-group label {
+      display: block;
+      font-size: 0.8rem;
+      color: #ff88cc;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .control-group input[type="color"] {
+      width: 100%;
+      height: 32px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: transparent;
+    }
+    .control-group input[type="range"] {
+      width: 100%;
+      cursor: pointer;
+      accent-color: #ff0066;
+    }
+
+    #canvas-container {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* LỚP SAO BĂNG */
+    #shooting-star-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+      pointer-events: none;
+      display: block;
+      mix-blend-mode: screen;
+    }
+
+
+    /* LÁ THƯ HIỆN KHI HOVER HỘP QUÀ */
+    #gift-letter {
+      position: fixed;
+      z-index: 900;
+      width: min(360px, 78vw);
+      padding: 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(-50%, -50%) scale(0.72) rotate(-2deg);
+      transform-origin: center;
+      transition: opacity .28s ease, transform .35s cubic-bezier(.2,.85,.25,1), visibility .28s ease;
+      pointer-events: none;
+    }
+
+    #gift-letter.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1) rotate(-1deg);
+    }
+
+    .letter-paper {
+      position: relative;
+      padding: 28px 26px 24px;
+      border: 1px solid rgba(255, 0, 102, .55);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(255, 248, 253, .98), rgba(255, 224, 241, .96));
+      color: #4a1230;
+      box-shadow: 0 0 18px rgba(255, 0, 102, .45), 0 18px 55px rgba(0, 0, 0, .48);
+      overflow: hidden;
+    }
+
+    .letter-paper::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px dashed rgba(255, 0, 102, .3);
+      border-radius: 12px;
+      pointer-events: none;
+    }
+
+    .letter-seal {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff0066, #a900ff);
+      color: #fff;
+      font-size: 17px;
+      box-shadow: 0 0 16px rgba(255, 0, 102, .55);
+    }
+
+    .letter-paper h3 {
+      position: relative;
+      margin: 0 44px 10px 0;
+      color: #d60060;
+      font-size: 1.25rem;
+      text-shadow: 0 0 10px rgba(255, 0, 102, .18);
+    }
+
+    .letter-paper p {
+      position: relative;
+      margin: 0;
+      font-size: .94rem;
+      line-height: 1.65;
+      color: #5f2444;
+    }
+
+    .letter-sign {
+      position: relative;
+      margin-top: 13px;
+      text-align: right;
+      font-size: .85rem;
+      font-weight: 700;
+      color: #c00058;
+    }
+
+    @media (max-width: 700px) {
+      #gift-letter.show {
+        transform: translate(-50%, -50%) scale(.92) rotate(-1deg);
+      }
+    }
+
+    /* MODAL POPUP LỜI CHÚC */
+    #wish-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    #wish-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .wish-card {
+      background: rgba(30, 5, 38, 0.95);
+      border: 2px solid #ff0066;
+      padding: 30px 25px;
+      border-radius: 24px;
+      text-align: center;
+      max-width: 360px;
+      width: 85%;
+      box-shadow: 0 0 50px rgba(255, 0, 102, 0.6);
+      position: relative;
+      transform: scale(0.8);
+      transition: transform 0.4s ease;
+    }
+    #wish-modal.active .wish-card {
+      transform: scale(1);
+    }
+    .wish-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #ff3399;
+      box-shadow: 0 0 25px #ff0066;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+    .wish-title {
+      color: #ff3399;
+      font-size: 1.35rem;
+      margin-bottom: 12px;
+      text-shadow: 0 0 12px #ff0066;
+    }
+    .wish-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #f0f0f0;
+      margin-bottom: 22px;
+    }
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      background: none;
+      border: none;
+      color: #aaa;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+    .close-btn:hover { color: #fff; }
+  </style>
+
+  <!-- Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+
+  <!-- MÀN HÌNH BẮT ĐẦU -->
+  <div id="landing-screen">
+    <div class="card">
+      <h1>HAPPY BIRTHDAY</h1>
+      <p>Bấm nút bên dưới để mở quà ❤️</p>
+      <button class="btn-enter" onclick="startExperience()">KHÁM PHÁ VŨ TRỤ ✨</button>
+    </div>
+  </div>
+
+  <!-- BẢNG ĐIỀU KHIỂN MÀU SẮC & TƯƠNG PHẢN 
+  <div id="control-panel">
+    <div class="control-group">
+      <label>Màu Trái Tim Trung Tâm</label>
+      <input type="color" id="heartColorPicker" value="#ff0066" oninput="updateHeartColor(this.value)">
+    </div>
+    <div class="control-group">
+      <label>Màu Trái Tim Bay Lên</label>
+      <input type="color" id="floatingColorPicker" value="#ff0066" oninput="updateFloatingColor(this.value)">
+    </div>
+    <div class="control-group">
+      <label>Độ Sáng / Tương Phản</label>
+      <input type="range" id="contrastSlider" min="0.5" max="2.0" step="0.1" value="1.0" oninput="updateContrast(this.value)">
+    </div>
+  </div> -->
+
+  <!-- MODAL LỜI CHÚC -->
+  <div id="wish-modal">
+    <div class="wish-card">
+      <button class="close-btn" onclick="closeWishModal()">&times;</button>
+      <img id="modal-img" src="" class="wish-img" alt="Avatar">
+      <h2 id="modal-title" class="wish-title">HAPPY BIRTHDAY! ❤️</h2>
+      <p id="modal-text" class="wish-text"></p>
+      <button class="btn-enter" onclick="closeWishModal()">Cảm ơn ❤️</button>
+    </div>
+  </div>
+
+
+  <!-- LÁ THƯ CỦA HỘP QUÀ -->
+  <div id="gift-letter" aria-hidden="true">
+    <div class="letter-paper">
+      <div class="letter-seal">💌</div>
+      <h3>Gửi cậu, từ hộp quà 🎁</h3>
+      <p>Chúc cậu một tuổi mới thật rực rỡ, luôn vui vẻ, bình an và gặp thật nhiều điều may mắn. Mong mọi ước mơ của cậu từng bước trở thành hiện thực, và mỗi ngày đều có thật nhiều lý do để mỉm cười. Happy Birthday! ❤️</p>
+      <div class="letter-sign">— Một lời chúc thật đặc biệt ✨</div>
+    </div>
+  </div>
+
+  <!-- NHẠC NỀN -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="music-happybirthday.mp3" type="audio/mpeg">
+  </audio>
+
+  <div id="canvas-container"></div>
+  <canvas id="shooting-star-canvas" aria-hidden="true"></canvas>
+
+  <script>
+    const wishesData = [
+      {
+        img: "https://i.postimg.cc/J4y3gHs7/1.jpg",
+        title: "Lời Chúc Rực Rỡ ✨",
+        text: "Chúc cậu một tuổi mới thật rực rỡ, luôn giữ nụ cười tươi rạng rỡ và gặt hái thêm nhiều thành công mới!"
+      },
+      {
+        img: "https://i.postimg.cc/8zMRk8BC/2.jpg",
+        title: "Ngọt Ngào & Hạnh Phúc 💖",
+        text: "Mong rằng mỗi ngày trong tuổi mới của cậu đều ngập tràn niềm vui, sự ngọt ngào và những ký ức tuyệt vời."
+      },
+      {
+        img: "https://i.postimg.cc/fbsxJHB7/3.jpg",
+        title: "Tỏa Sáng Tinh Tú 🌟",
+        text: "Cậu luôn là ngôi sao tỏa sáng nhất. Hãy luôn tự tin, mạnh mẽ bước tiếp và theo đuổi ước mơ của mình nhé!"
+      },
+      {
+        img: "https://i.postimg.cc/vmv59WKd/4.jpg",
+        title: "Tuổi Mới Bình An 🎂",
+        text: "Happy Birthday! Chúc cậu có một ngày sinh nhật thật ấm áp bên người thân yêu, luôn xinh đẹp và may mắn!"
+      },
+      {
+        img: "https://i.postimg.cc/J4y3gHs7/1.jpg",
+        title: "Kỷ Niệm Đáng Nhớ 💫",
+        text: "Mỗi khoảnh khắc đẹp đều xứng đáng được lưu giữ thật lâu trong tuổi mới này."
+      },
+      {
+        img: "https://i.postimg.cc/8zMRk8BC/2.jpg",
+        title: "Niềm Vui Mỗi Ngày 🌸",
+        text: "Chúc cậu luôn có thật nhiều niềm vui nhỏ bé nhưng đủ làm cả ngày trở nên đặc biệt."
+      },
+      {
+        img: "https://i.postimg.cc/fbsxJHB7/3.jpg",
+        title: "Ước Mơ Tỏa Sáng 🌙",
+        text: "Mong mọi ước mơ của cậu đều dần trở thành những điều thật đẹp trong tương lai."
+      },
+      {
+        img: "https://i.postimg.cc/vmv59WKd/4.jpg",
+        title: "Bình Yên & May Mắn 🍀",
+        text: "Tuổi mới thật bình yên, gặp nhiều may mắn và luôn có những người thương cậu ở bên."
+      },
+      {
+        img: "https://i.postimg.cc/J4y3gHs7/1.jpg",
+        title: "Một Tuổi Mới Tuyệt Vời 🎉",
+        text: "Chúc những ngày phía trước đều có thêm thật nhiều lý do để mỉm cười."
+      },
+      {
+        img: "https://i.postimg.cc/8zMRk8BC/2.jpg",
+        title: "Happy Birthday! ❤️",
+        text: "Chúc cậu có một sinh nhật thật đáng nhớ và một hành trình tuổi mới thật rực rỡ!"
+      }
+    ];
+
+    function startExperience() {
+      document.getElementById('landing-screen').classList.add('hidden');
+      const audio = document.getElementById('bg-music');
+      if (audio) {
+        audio.play().catch(e => console.log("Audio error:", e));
+      }
+    }
+
+    function openWishModal(index) {
+      const data = wishesData[index];
+      document.getElementById('modal-img').src = data.img;
+      document.getElementById('modal-title').innerText = data.title;
+      document.getElementById('modal-text').innerText = data.text;
+      document.getElementById('wish-modal').classList.add('active');
+    }
+
+    function closeWishModal() {
+      document.getElementById('wish-modal').classList.remove('active');
+    }
+
+    // 1. KHỞI TẠO SCENE & CAMERA
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 3.5, 7.5);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+
+    const mainGroup = new THREE.Group();
+    scene.add(mainGroup);
+
+    // 2. TEXTURE HẠT NEON
+    function createGlowTexture() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 64;
+      canvas.height = 64;
+      const ctx = canvas.getContext('2d');
+      const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+      gradient.addColorStop(0.3, 'rgba(255, 255, 255, 0.8)');
+      gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 64, 64);
+      return new THREE.CanvasTexture(canvas);
+    }
+    const particleTexture = createGlowTexture();
+
+    // 3. HỘP QUÀ 3D Ở TRUNG TÂM
+    const giftGroup = new THREE.Group();
+    giftGroup.position.set(0, 0.20, 0);
+    mainGroup.add(giftGroup);
+
+    // Ánh sáng môi trường để bề mặt hộp có chiều sâu hơn.
+    const giftAmbient = new THREE.AmbientLight(0x6b285d, 1.35);
+    giftGroup.add(giftAmbient);
+
+    const giftBodyMat = new THREE.MeshStandardMaterial({
+      color: 0xc91567,
+      emissive: 0x4d082f,
+      emissiveIntensity: 0.85,
+      roughness: 0.24,
+      metalness: 0.30
+    });
+    const giftLidMat = new THREE.MeshStandardMaterial({
+      color: 0xff3e9d,
+      emissive: 0x76003e,
+      emissiveIntensity: 1.05,
+      roughness: 0.20,
+      metalness: 0.28
+    });
+    const ribbonMat = new THREE.MeshStandardMaterial({
+      color: 0xffd8ee,
+      emissive: 0xff2c93,
+      emissiveIntensity: 1.0,
+      roughness: 0.13,
+      metalness: 0.48
+    });
+    const ribbonHighlightMat = new THREE.MeshStandardMaterial({
+      color: 0xffffff,
+      emissive: 0xff88c8,
+      emissiveIntensity: 0.75,
+      roughness: 0.10,
+      metalness: 0.55
+    });
+    const innerMat = new THREE.MeshStandardMaterial({
+      color: 0x2b001e,
+      emissive: 0xff0066,
+      emissiveIntensity: 1.6,
+      roughness: 0.32,
+      metalness: 0.05,
+      transparent: true,
+      opacity: 0.95
+    });
+
+    const giftGlow = new THREE.PointLight(0xff1a91, 7.5, 8, 1.65);
+    giftGlow.position.set(0, 1.15, 0.7);
+    giftGroup.add(giftGlow);
+
+    const giftRimLight = new THREE.PointLight(0x8d5cff, 2.5, 6, 2);
+    giftRimLight.position.set(-1.4, 1.6, -1.2);
+    giftGroup.add(giftRimLight);
+
+    // Phần ruột phát sáng nhìn thấy khi nắp mở.
+    const innerGlow = new THREE.Mesh(new THREE.BoxGeometry(1.42, 0.28, 1.42), innerMat);
+    innerGlow.position.y = 1.35;
+    giftGroup.add(innerGlow);
+
+    const giftBody = new THREE.Mesh(new THREE.BoxGeometry(1.82, 1.32, 1.82), giftBodyMat);
+    giftBody.position.y = 0.72;
+    giftGroup.add(giftBody);
+
+    // Viền kim loại chạy quanh thân hộp.
+    const bodyEdges = new THREE.LineSegments(
+      new THREE.EdgesGeometry(new THREE.BoxGeometry(1.85, 1.35, 1.85)),
+      new THREE.LineBasicMaterial({ color: 0xff6fba, transparent: true, opacity: 0.72 })
+    );
+    bodyEdges.position.y = 0.72;
+    giftGroup.add(bodyEdges);
+
+    // Nắp hộp có riêng một Group để có thể bật nắp khi hover.
+    const lidGroup = new THREE.Group();
+    lidGroup.position.set(0, 1.37, -0.90);
+    giftGroup.add(lidGroup);
+
+    const giftLid = new THREE.Mesh(new THREE.BoxGeometry(2.06, 0.30, 2.06), giftLidMat);
+    giftLid.position.set(0, 0.23, 0.90);
+    lidGroup.add(giftLid);
+
+    const lidEdges = new THREE.LineSegments(
+      new THREE.EdgesGeometry(new THREE.BoxGeometry(2.08, 0.31, 2.08)),
+      new THREE.LineBasicMaterial({ color: 0xff9bd0, transparent: true, opacity: 0.92 })
+    );
+    lidEdges.position.copy(giftLid.position);
+    lidGroup.add(lidEdges);
+
+    const ribbonVertical = new THREE.Mesh(new THREE.BoxGeometry(0.30, 1.58, 1.84), ribbonMat);
+    ribbonVertical.position.y = 0.72;
+    giftGroup.add(ribbonVertical);
+
+    const ribbonHorizontal = new THREE.Mesh(new THREE.BoxGeometry(2.06, 0.22, 0.30), ribbonHighlightMat);
+    ribbonHorizontal.position.y = 1.44;
+    giftGroup.add(ribbonHorizontal);
+
+    // Hai dải nhỏ phản sáng trên thân, tạo cảm giác hộp quà cao cấp.
+    const ribbonShineL = new THREE.Mesh(new THREE.BoxGeometry(0.045, 1.48, 1.87), ribbonHighlightMat);
+    ribbonShineL.position.set(-0.14, 0.72, 0);
+    giftGroup.add(ribbonShineL);
+    const ribbonShineR = ribbonShineL.clone();
+    ribbonShineR.position.x = 0.14;
+    giftGroup.add(ribbonShineR);
+
+    // Nơ dạng vòng kim loại thay cho khối cầu cũ.
+    const bowLoopGeo = new THREE.TorusGeometry(0.33, 0.115, 14, 36);
+    const bowLeft = new THREE.Mesh(bowLoopGeo, ribbonMat);
+    bowLeft.scale.set(1.08, 0.72, 0.72);
+    bowLeft.rotation.set(0.25, 0.20, -0.42);
+    bowLeft.position.set(-0.34, 0.66, 0.90);
+    lidGroup.add(bowLeft);
+
+    const bowRight = new THREE.Mesh(bowLoopGeo, ribbonMat);
+    bowRight.scale.set(1.08, 0.72, 0.72);
+    bowRight.rotation.set(0.25, -0.20, 0.42);
+    bowRight.position.set(0.34, 0.66, 0.90);
+    lidGroup.add(bowRight);
+
+    const bowKnot = new THREE.Mesh(new THREE.SphereGeometry(0.21, 24, 18), ribbonHighlightMat);
+    bowKnot.position.set(0, 0.65, 0.90);
+    lidGroup.add(bowKnot);
+
+    // Một viên đá phát sáng ở chính giữa mặt trước.
+    const jewel = new THREE.Mesh(
+      new THREE.OctahedronGeometry(0.13, 1),
+      new THREE.MeshStandardMaterial({
+        color: 0xffffff,
+        emissive: 0xff4ca5,
+        emissiveIntensity: 2.2,
+        metalness: 0.55,
+        roughness: 0.12
+      })
+    );
+    jewel.position.set(0, 0.78, 0.94);
+    giftGroup.add(jewel);
+
+    // Hạt lấp lánh quanh hộp.
+    const sparkleGeo = new THREE.BufferGeometry();
+    const sparklePos = new Float32Array(54 * 3);
+    for (let i = 0; i < 54; i++) {
+      const a = Math.random() * Math.PI * 2;
+      const r = 1.45 + Math.random() * 0.85;
+      sparklePos[i * 3] = Math.cos(a) * r;
+      sparklePos[i * 3 + 1] = 0.35 + Math.random() * 2.5;
+      sparklePos[i * 3 + 2] = Math.sin(a) * r;
+    }
+    sparkleGeo.setAttribute('position', new THREE.BufferAttribute(sparklePos, 3));
+    const sparkleMat = new THREE.PointsMaterial({
+      color: 0xffb3e1,
+      size: 0.055,
+      map: particleTexture,
+      transparent: true,
+      opacity: 0.9,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    const giftSparkles = new THREE.Points(sparkleGeo, sparkleMat);
+    giftGroup.add(giftSparkles);
+
+    const giftParts = [giftBody, bodyEdges, giftLid, lidEdges, ribbonVertical, ribbonHorizontal, ribbonShineL, ribbonShineR, bowLeft, bowRight, bowKnot, jewel, innerGlow, giftSparkles];
+    giftParts.forEach(part => {
+      part.userData.isGift = true;
+    });
+    lidGroup.traverse(part => {
+      if (part.isObject3D) part.userData.isGift = true;
+    });
+
+    const giftHitBox = new THREE.Mesh(
+      new THREE.BoxGeometry(2.40, 2.55, 2.40),
+      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false })
+    );
+    giftHitBox.position.y = 1.12;
+    giftHitBox.userData.isGift = true;
+    giftGroup.add(giftHitBox);
+    giftParts.push(giftHitBox);
+
+    let giftOpen = false;
+    function setGiftOpen(open) {
+      if (giftOpen === open) return;
+      giftOpen = open;
+      gsap.killTweensOf(lidGroup.rotation);
+      gsap.killTweensOf(lidGroup.position);
+      gsap.killTweensOf(giftGroup.scale);
+      gsap.to(lidGroup.rotation, { x: open ? -0.32 : 0, z: open ? -0.10 : 0, duration: 0.55, ease: 'back.out(1.45)' });
+      gsap.to(lidGroup.position, { y: open ? 1.57 : 1.37, z: open ? -0.65 : -0.90, duration: 0.55, ease: 'power2.out' });
+      gsap.to(giftGroup.scale, { x: open ? 1.045 : 1, y: open ? 1.045 : 1, z: open ? 1.045 : 1, duration: 0.42, ease: 'power2.out' });
+      gsap.to(giftGlow, { intensity: open ? 11 : 7.5, duration: 0.35, ease: 'power2.out' });
+      gsap.to(sparkleMat, { opacity: open ? 1 : 0.72, duration: 0.35 });
+    }
+
+    // Hiệu ứng lơ lửng nhẹ cho hộp quà
+    gsap.to(giftGroup.position, {
+      y: 0.42,
+      duration: 1.8,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut'
+    });
+
+    gsap.to(giftGroup.rotation, {
+      y: 0.08,
+      duration: 2.4,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut'
+    });
+
+    gsap.to(giftSparkles.rotation, {
+      y: Math.PI * 2,
+      duration: 9,
+      repeat: -1,
+      ease: 'none'
+    });
+
+    gsap.to(jewel.scale, {
+      x: 1.18, y: 1.18, z: 1.18,
+      duration: 0.9,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut'
+    });
+
+    // Đổi màu hộp quà nếu bảng điều khiển màu được bật lại
+    function updateHeartColor(hex) {
+      const color = new THREE.Color(hex);
+      giftBodyMat.color.copy(color);
+      giftBodyMat.emissive.setRGB(color.r * 0.38, color.g * 0.08, color.b * 0.25);
+      giftLidMat.color.copy(color).offsetHSL(0, 0.08, 0.08);
+      giftLidMat.emissive.setRGB(color.r * 0.5, color.g * 0.06, color.b * 0.32);
+    }
+
+    // 4. DẢI NGÂN HÀ 3D
+    const galaxyParams = { count: 30000, radius: 10, branches: 3, spin: 1.4 };
+    const galaxyGeo = new THREE.BufferGeometry();
+    const galaxyPos = new Float32Array(galaxyParams.count * 3);
+    const galaxyColors = new Float32Array(galaxyParams.count * 3);
+
+    for (let i = 0; i < galaxyParams.count; i++) {
+      const r = Math.pow(Math.random(), 2.2) * galaxyParams.radius;
+      const spinAngle = r * galaxyParams.spin;
+      const branchAngle = ((i % galaxyParams.branches) / galaxyParams.branches) * Math.PI * 2;
+
+      galaxyPos[i * 3] = Math.cos(branchAngle + spinAngle) * r + (Math.random() - 0.5) * 0.4;
+      galaxyPos[i * 3 + 1] = (Math.random() - 0.5) * 0.2;
+      galaxyPos[i * 3 + 2] = Math.sin(branchAngle + spinAngle) * r + (Math.random() - 0.5) * 0.4;
+
+      galaxyColors[i * 3] = 0.5;
+      galaxyColors[i * 3 + 1] = 0.1;
+      galaxyColors[i * 3 + 2] = 0.9;
+    }
+
+    galaxyGeo.setAttribute('position', new THREE.BufferAttribute(galaxyPos, 3));
+    galaxyGeo.setAttribute('color', new THREE.BufferAttribute(galaxyColors, 3));
+
+    const galaxyMat = new THREE.PointsMaterial({
+      size: 0.035,
+      map: particleTexture,
+      vertexColors: true,
+      transparent: true,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+
+    const galaxyPoints = new THREE.Points(galaxyGeo, galaxyMat);
+    mainGroup.add(galaxyPoints);
+
+    // 5. KHUNG ẢNH SPRITE
+    const photoSprites = [];
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    // Khung ảnh chữ nhật đứng bo góc 3:4, lớn hơn và giữ ảnh cân đối.
+    function roundedRectPath(ctx, x, y, w, h, r) {
+      const rr = Math.min(r, w / 2, h / 2);
+      ctx.beginPath();
+      ctx.moveTo(x + rr, y);
+      ctx.lineTo(x + w - rr, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + rr);
+      ctx.lineTo(x + w, y + h - rr);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - rr, y + h);
+      ctx.lineTo(x + rr, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - rr);
+      ctx.lineTo(x, y + rr);
+      ctx.quadraticCurveTo(x, y, x + rr, y);
+      ctx.closePath();
+    }
+
+    function drawImageCover(ctx, img, x, y, w, h) {
+      const imageRatio = img.width / img.height;
+      const boxRatio = w / h;
+      let sx = 0, sy = 0, sw = img.width, sh = img.height;
+
+      if (imageRatio > boxRatio) {
+        sw = img.height * boxRatio;
+        sx = (img.width - sw) / 2;
+      } else {
+        sh = img.width / boxRatio;
+        sy = (img.height - sh) / 2;
+      }
+      ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
+    }
+
+    function createRectangleTexture(imgUrl, callback) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 450;
+      canvas.height = 600;
+      const ctx = canvas.getContext('2d');
+
+      const img = new Image();
+      img.crossOrigin = "Anonymous";
+      img.src = imgUrl;
+      img.onload = () => {
+        ctx.clearRect(0, 0, 450, 600);
+
+        // Glow + viền hồng nhẹ
+        ctx.shadowColor = 'rgba(255, 0, 102, 0.70)';
+        ctx.shadowBlur = 24;
+        roundedRectPath(ctx, 14, 14, 422, 572, 34);
+        ctx.fillStyle = '#ff0066';
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Ảnh bên trong, bo góc và giữ đúng tỷ lệ
+        ctx.save();
+        roundedRectPath(ctx, 26, 26, 398, 548, 26);
+        ctx.clip();
+        drawImageCover(ctx, img, 26, 26, 398, 548);
+        ctx.restore();
+
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.needsUpdate = true;
+        callback(texture);
+      };
+    }
+
+    const photoPositions = [
+      { r: 2.8, angle: 0.10, y: 0.70 },
+      { r: 3.5, angle: 0.75, y: -0.10 },
+      { r: 4.3, angle: 1.45, y: 0.55 },
+      { r: 5.0, angle: 2.15, y: -0.25 },
+      { r: 5.7, angle: 2.80, y: 0.65 },
+      { r: 6.2, angle: 3.45, y: -0.10 },
+      { r: 6.0, angle: 4.10, y: 0.55 },
+      { r: 5.5, angle: 4.75, y: -0.20 },
+      { r: 4.7, angle: 5.40, y: 0.60 },
+      { r: 3.8, angle: 6.00, y: -0.05 }
+    ];
+
+    function isMobileLayout() {
+      return window.innerWidth <= 700;
+    }
+
+    for (let i = 0; i < 10; i++) {
+      createRectangleTexture(wishesData[i].img, (texture) => {
+        const mat = new THREE.SpriteMaterial({ map: texture, transparent: true });
+        const sprite = new THREE.Sprite(mat);
+        // Khung ảnh chữ nhật đứng tỷ lệ 3:4
+        sprite.scale.set(0.765, 1.02, 1);
+
+        const posConfig = photoPositions[i];
+        const mobile = isMobileLayout();
+        const xCompression = mobile ? 0.48 : 1;
+        const radius = mobile ? Math.min(posConfig.r, 4.15) : posConfig.r;
+        sprite.position.x = Math.cos(posConfig.angle) * radius * xCompression;
+        sprite.position.z = Math.sin(posConfig.angle) * radius;
+        sprite.position.y = mobile ? posConfig.y * 0.82 : posConfig.y;
+        sprite.userData = { index: i };
+
+        mainGroup.add(sprite);
+        photoSprites.push(sprite);
+
+        gsap.to(sprite.position, {
+          y: sprite.position.y + 0.15,
+          duration: 1.8 + (i % 4) * 0.25,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut"
+        });
+      });
+    }
+
+    const giftLetter = document.getElementById('gift-letter');
+    const giftWorldPos = new THREE.Vector3();
+    const giftScreenPos = new THREE.Vector3();
+    let giftHovered = false;
+
+    function setGiftLetterVisible(show) {
+      giftHovered = show;
+      giftLetter.classList.toggle('show', show);
+      giftLetter.setAttribute('aria-hidden', show ? 'false' : 'true');
+    }
+
+    function updateGiftLetterPosition() {
+      if (!giftHovered) return;
+      giftGroup.getWorldPosition(giftWorldPos);
+      giftScreenPos.copy(giftWorldPos);
+      giftScreenPos.project(camera);
+
+      let x = (giftScreenPos.x * 0.5 + 0.5) * window.innerWidth;
+      let y = (-giftScreenPos.y * 0.5 + 0.5) * window.innerHeight;
+
+      if (window.innerWidth <= 700) {
+        x = window.innerWidth * 0.50;
+        y = Math.max(120, window.innerHeight * 0.19);
+      } else {
+        x += 150;
+        y -= 10;
+        x = Math.min(window.innerWidth - 190, Math.max(190, x));
+        y = Math.min(window.innerHeight - 170, Math.max(170, y));
+      }
+
+      giftLetter.style.left = `${x}px`;
+      giftLetter.style.top = `${y}px`;
+    }
+
+    window.addEventListener('pointermove', (e) => {
+      if (e.target.closest('#control-panel') || e.target.closest('#gift-letter')) return;
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+      const giftIntersects = raycaster.intersectObjects(giftParts, true);
+      const giftActive = giftIntersects.length > 0;
+      setGiftOpen(giftActive);
+      setGiftLetterVisible(giftActive);
+    });
+
+    window.addEventListener('pointerleave', () => { setGiftOpen(false); setGiftLetterVisible(false); });
+
+    window.addEventListener('pointerdown', (e) => {
+      if(e.target.closest('#control-panel')) return; // Tránh bấm nhầm bảng điều khiển
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+      const giftIntersects = raycaster.intersectObjects(giftParts, true);
+      if (giftIntersects.length > 0) {
+        setGiftOpen(true);
+        setGiftLetterVisible(true);
+        return;
+      }
+
+      const intersects = raycaster.intersectObjects(photoSprites);
+      if (intersects.length > 0) {
+        openWishModal(intersects[0].object.userData.index);
+      }
+    });
+
+    // 6. TRÁI TIM NỔI TỪ DƯỚI LÊN
+    function createHeartTexture(hexColor) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 64;
+      canvas.height = 64;
+      const ctx = canvas.getContext('2d');
+      
+      ctx.fillStyle = hexColor;
+      ctx.beginPath();
+      ctx.moveTo(32, 20);
+      ctx.bezierCurveTo(32, 14, 24, 6, 14, 6);
+      ctx.bezierCurveTo(2, 6, 2, 22, 2, 22);
+      ctx.bezierCurveTo(2, 36, 18, 48, 32, 58);
+      ctx.bezierCurveTo(46, 48, 62, 36, 62, 22);
+      ctx.bezierCurveTo(62, 22, 62, 6, 50, 6);
+      ctx.bezierCurveTo(40, 6, 32, 14, 32, 20);
+      ctx.fill();
+
+      return new THREE.CanvasTexture(canvas);
+    }
+
+    const floatingHeartsCount = 120;
+    const floatingGeo = new THREE.BufferGeometry();
+    const floatingPos = new Float32Array(floatingHeartsCount * 3);
+    const floatSpeed = [];
+
+    for (let i = 0; i < floatingHeartsCount; i++) {
+      floatingPos[i * 3] = (Math.random() - 0.5) * 16;
+      floatingPos[i * 3 + 1] = -5 + Math.random() * 10;
+      floatingPos[i * 3 + 2] = (Math.random() - 0.5) * 16;
+      floatSpeed.push(0.015 + Math.random() * 0.025);
+    }
+
+    floatingGeo.setAttribute('position', new THREE.BufferAttribute(floatingPos, 3));
+
+    const floatingMat = new THREE.PointsMaterial({
+      size: 0.2,
+      map: createHeartTexture("#ff0066"),
+      transparent: true,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      opacity: 0.85
+    });
+
+    const floatingPoints = new THREE.Points(floatingGeo, floatingMat);
+    scene.add(floatingPoints);
+
+    // Hàm cập nhật màu trái tim bay
+    function updateFloatingColor(hex) {
+      floatingMat.map = createHeartTexture(hex);
+      floatingMat.needsUpdate = true;
+    }
+
+    // Hàm chỉnh độ tương phản / sáng
+    function updateContrast(val) {
+      heartMat.size = 0.045 * val;
+      galaxyMat.size = 0.035 * val;
+      floatingMat.opacity = Math.min(1.0, 0.5 * val);
+    }
+
+    // 7. CHỮ 3D VÒNG QUANH
+    function createTextSprite(text) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 512;
+      canvas.height = 64;
+      const ctx = canvas.getContext('2d');
+      ctx.font = "Bold 26px sans-serif";
+      ctx.fillStyle = "#ffffff";
+      ctx.shadowColor = "#ff0066";
+      ctx.shadowBlur = 12;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+
+      const texture = new THREE.CanvasTexture(canvas);
+      const mat = new THREE.SpriteMaterial({ map: texture, transparent: true, blending: THREE.AdditiveBlending });
+      const sprite = new THREE.Sprite(mat);
+      sprite.scale.set(2.2, 0.45, 1);
+      return sprite;
+    }
+
+    ["HAPPY BIRTHDAY", "HAPPY BIRTHDAY", "HAPPY BIRTHDAY", "HAPPY BIRTHDAY"].forEach((txt, idx, arr) => {
+      const sprite = createTextSprite(txt);
+      const angle = (idx / arr.length) * Math.PI * 2 + (Math.PI / 4);
+      sprite.position.set(Math.cos(angle) * 4.8, (Math.random() - 0.5) * 0.3, Math.sin(angle) * 4.8);
+      mainGroup.add(sprite);
+    });
+
+    // 8. ANIMATION LOOP
+    function animate() {
+      requestAnimationFrame(animate);
+      mainGroup.rotation.y += 0.0025;
+
+      const positions = floatingGeo.attributes.position.array;
+      for (let i = 0; i < floatingHeartsCount; i++) {
+        positions[i * 3 + 1] += floatSpeed[i];
+        if (positions[i * 3 + 1] > 6) {
+          positions[i * 3 + 1] = -5;
+          positions[i * 3] = (Math.random() - 0.5) * 16;
+          positions[i * 3 + 2] = (Math.random() - 0.5) * 16;
+        }
+      }
+      floatingGeo.attributes.position.needsUpdate = true;
+
+      controls.update();
+      updateGiftLetterPosition();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // 9. SAO BĂNG PHÁT SÁNG
+    const meteorCanvas = document.getElementById('shooting-star-canvas');
+    const meteorCtx = meteorCanvas.getContext('2d');
+    let meteors = [];
+    let meteorLastTime = performance.now();
+    let meteorSpawnTimer = 0;
+
+    function resizeMeteorCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      meteorCanvas.width = Math.floor(window.innerWidth * dpr);
+      meteorCanvas.height = Math.floor(window.innerHeight * dpr);
+      meteorCanvas.style.width = window.innerWidth + 'px';
+      meteorCanvas.style.height = window.innerHeight + 'px';
+      meteorCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function makeMeteor(force = false) {
+      if (!force && meteors.length >= 18) return;
+
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const fromTop = Math.random() < 0.72;
+      const x = fromTop ? Math.random() * w * 0.9 + w * 0.08 : w + 40;
+      const y = fromTop ? -80 : Math.random() * h * 0.45;
+      const angle = (Math.random() * 0.16 + 0.62) * Math.PI;
+      const speed = 520 + Math.random() * 420;
+      const len = 90 + Math.random() * 170;
+      const life = 0.75 + Math.random() * 0.75;
+      const hue = Math.random() < 0.6
+        ? 330 + Math.random() * 28
+        : 195 + Math.random() * 55;
+
+      meteors.push({
+        x,
+        y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        len,
+        life,
+        age: 0,
+        hue,
+        width: 1.2 + Math.random() * 2.2,
+        pulse: Math.random() * Math.PI * 2
+      });
+    }
+
+    function drawMeteor(m, dt) {
+      m.age += dt;
+      m.x += m.vx * dt;
+      m.y += m.vy * dt;
+      m.pulse += dt * 12;
+
+      const progress = m.age / m.life;
+      const fade = Math.min(1, progress * 5) * Math.min(1, (1 - progress) * 2.8);
+      const dx = m.vx / Math.hypot(m.vx, m.vy);
+      const dy = m.vy / Math.hypot(m.vx, m.vy);
+      const tx = m.x - dx * m.len;
+      const ty = m.y - dy * m.len;
+
+      const gradient = meteorCtx.createLinearGradient(tx, ty, m.x, m.y);
+      gradient.addColorStop(0, `hsla(${m.hue}, 100%, 75%, 0)`);
+      gradient.addColorStop(0.58, `hsla(${m.hue}, 100%, 78%, ${0.18 * fade})`);
+      gradient.addColorStop(0.88, `hsla(${m.hue}, 100%, 88%, ${0.52 * fade})`);
+      gradient.addColorStop(1, `rgba(255,255,255,${0.98 * fade})`);
+
+      meteorCtx.save();
+      meteorCtx.lineCap = 'round';
+      meteorCtx.strokeStyle = gradient;
+      meteorCtx.lineWidth = m.width;
+      meteorCtx.shadowBlur = 14 + Math.sin(m.pulse) * 4;
+      meteorCtx.shadowColor = `hsla(${m.hue}, 100%, 75%, ${0.9 * fade})`;
+      meteorCtx.beginPath();
+      meteorCtx.moveTo(tx, ty);
+      meteorCtx.lineTo(m.x, m.y);
+      meteorCtx.stroke();
+
+      const glow = meteorCtx.createRadialGradient(m.x, m.y, 0, m.x, m.y, 18);
+      glow.addColorStop(0, `rgba(255,255,255,${0.95 * fade})`);
+      glow.addColorStop(0.15, `hsla(${m.hue},100%,92%,${0.8 * fade})`);
+      glow.addColorStop(0.45, `hsla(${m.hue},100%,72%,${0.22 * fade})`);
+      glow.addColorStop(1, 'rgba(255,255,255,0)');
+      meteorCtx.fillStyle = glow;
+      meteorCtx.beginPath();
+      meteorCtx.arc(m.x, m.y, 18, 0, Math.PI * 2);
+      meteorCtx.fill();
+      meteorCtx.restore();
+
+      return progress >= 1 || m.x < -250 || m.y > window.innerHeight + 250;
+    }
+
+    function animateMeteors(now) {
+      const dt = Math.min((now - meteorLastTime) / 1000, 0.032);
+      meteorLastTime = now;
+      meteorSpawnTimer += dt;
+
+      meteorCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      // Nhịp xuất hiện ngẫu nhiên để sao băng không chạy liên tục.
+      if (meteorSpawnTimer > 0.12 + Math.random() * 0.30) {
+        makeMeteor();
+        if (Math.random() < 0.55) makeMeteor();
+        if (Math.random() < 0.28) makeMeteor();
+        meteorSpawnTimer = 0;
+      }
+
+      for (let i = meteors.length - 1; i >= 0; i--) {
+        if (drawMeteor(meteors[i], dt)) meteors.splice(i, 1);
+      }
+
+      requestAnimationFrame(animateMeteors);
+    }
+
+    resizeMeteorCanvas();
+    // Cho nhiều sao băng xuất hiện sớm sau khi trang mở để bầu trời có cảm giác sống động.
+    for (let i = 0; i < 10; i++) {
+      setTimeout(() => makeMeteor(true), 180 + i * 170);
+    }
+    requestAnimationFrame(animateMeteors);
+
+    function updateResponsiveCamera() {
+      const mobile = isMobileLayout();
+      camera.position.z = mobile ? 10.5 : 7.5;
+      camera.fov = mobile ? 64 : 60;
+      camera.updateProjectionMatrix();
+    }
+
+    updateResponsiveCamera();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      updateResponsiveCamera();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      resizeMeteorCanvas();
+    });
+  </script>
+</body>
+</html>

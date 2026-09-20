@@ -28,6 +28,7 @@
       height: 100%;
       z-index: 999;
       overflow: hidden;
+      background-color: #020812;
       background:
         radial-gradient(circle at 50% 44%, rgba(0, 120, 255, 0.24) 0%, rgba(0, 55, 110, 0.20) 24%, rgba(1, 0, 3, 0) 52%),
         radial-gradient(circle at 18% 22%, rgba(0, 140, 255, 0.10) 0%, rgba(0, 140, 255, 0) 30%),
@@ -42,6 +43,22 @@
     #landing-screen.hidden {
       opacity: 0;
       visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* Khi màn hình mở đầu còn hiện, ẩn hoàn toàn cảnh 3D phía sau.
+       Tránh lỗi hiển thị/đè nội dung trên điện thoại trong lúc chuyển trang. */
+    #landing-screen:not(.hidden) ~ #space-effects,
+    #landing-screen:not(.hidden) ~ #canvas-container,
+    #landing-screen:not(.hidden) ~ #shooting-star-canvas,
+    #landing-screen:not(.hidden) ~ #gift-prompt {
+      visibility: hidden !important;
+    }
+
+    #landing-screen.hidden ~ #space-effects,
+    #landing-screen.hidden ~ #canvas-container,
+    #landing-screen.hidden ~ #shooting-star-canvas {
+      visibility: visible !important;
     }
 
     /* CỰC QUANG NỀN CHO MÀN HÌNH BẮT ĐẦU */
@@ -2146,8 +2163,13 @@
 
     function updateResponsiveCamera() {
       const mobile = isMobileLayout();
-      camera.position.z = mobile ? 10.5 : 7.5;
-      camera.fov = mobile ? 64 : 60;
+      if (mobile) {
+        camera.position.set(0, 2.25, 8.2);
+        camera.fov = 60;
+      } else {
+        camera.position.set(0, 3.5, 7.5);
+        camera.fov = 60;
+      }
       camera.updateProjectionMatrix();
     }
 

@@ -1230,13 +1230,6 @@
     const mainGroup = new THREE.Group();
     scene.add(mainGroup);
 
-    // Trên điện thoại, hạ toàn bộ cụm hộp quà + khung ảnh xuống
-    // để cụm nội dung nằm ở vùng giữa màn hình thay vì dồn lên phía trên.
-    function updateMobileGroupPosition() {
-      mainGroup.position.y = window.innerWidth <= 700 ? -0.78 : 0;
-    }
-    updateMobileGroupPosition();
-
     // 2. TEXTURE HẠT NEON
     function createGlowTexture() {
       const canvas = document.createElement('canvas');
@@ -2170,14 +2163,20 @@
 
     function updateResponsiveCamera() {
       const mobile = isMobileLayout();
+
       if (mobile) {
-        camera.position.set(0, 2.25, 8.2);
-        camera.fov = 60;
+        // Trên điện thoại, căn tâm camera vào đúng vùng trung tâm của
+        // cụm hộp quà + vòng khung ảnh thay vì để cảnh bị dồn lên trên.
+        camera.position.set(0, 3.05, 10.2);
+        camera.fov = 62;
+        controls.target.set(0, 0.85, 0);
       } else {
         camera.position.set(0, 3.5, 7.5);
         camera.fov = 60;
+        controls.target.set(0, 0, 0);
       }
-      updateMobileGroupPosition();
+
+      controls.update();
       camera.updateProjectionMatrix();
     }
 

@@ -282,6 +282,11 @@
       pointer-events: none;
     }
 
+    /* Bắt buộc ẩn tuyệt đối khi JS chưa cho phép hiển thị. */
+    #gift-letter[hidden] {
+      display: none !important;
+    }
+
     #gift-letter.show {
       opacity: 1;
       visibility: visible;
@@ -477,7 +482,7 @@
 
 
   <!-- LÁ THƯ CỦA HỘP QUÀ -->
-  <div id="gift-letter" aria-hidden="true">
+  <div id="gift-letter" aria-hidden="true" hidden>
     <div class="letter-paper">
       <div class="letter-seal">💌</div>
       <h3>Gửi cậu, từ hộp quà 🎁</h3>
@@ -549,6 +554,10 @@
     ];
 
     function startExperience() {
+      /* Khi đang ở màn hình mở đầu, chuột trên nút không được tính là hover hộp quà phía sau. */
+      setGiftOpen(false);
+      setGiftLetterVisible(false);
+
       document.getElementById('landing-screen').classList.add('hidden');
       const audio = document.getElementById('bg-music');
       if (audio) {
@@ -781,9 +790,11 @@
     giftParts.push(giftHitBox);
 
     // Chỉ các bộ phận của hộp mới được tính là hover; hạt lấp lánh không kích hoạt lá thư.
+    /* Chỉ hình học thật của hộp được phép kích hoạt hover.
+       Không dùng hitbox vô hình để tránh thư hiện ra khi con trỏ còn ở vùng trống. */
     const giftHoverTargets = [
       giftBody, bodyEdges, giftLid, lidEdges, ribbonVertical, ribbonHorizontal,
-      ribbonShineL, ribbonShineR, bowLeft, bowRight, bowKnot, jewel, innerGlow, giftHitBox
+      ribbonShineL, ribbonShineR, bowLeft, bowRight, bowKnot, jewel, innerGlow
     ];
 
     let giftOpen = false;
@@ -877,7 +888,7 @@
     mainGroup.add(galaxyPoints);
 
     // 5. KHUNG ẢNH SPRITE
-    const photoSprites = [];
+    const photoSprites = []; // Chỉ dùng để render, không dùng làm vùng tương tác.
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
 
@@ -997,10 +1008,25 @@
     let giftHovered = false;
 
     function setGiftLetterVisible(show) {
+      show = !!show;
       giftHovered = show;
-      giftLetter.classList.toggle('show', show);
-      giftLetter.setAttribute('aria-hidden', show ? 'false' : 'true');
+
+      if (show) {
+        /* Chỉ bỏ hidden khi đã xác nhận hover/chạm đúng vào hộp. */
+        giftLetter.hidden = false;
+        giftLetter.setAttribute('aria-hidden', 'false');
+        requestAnimationFrame(() => {
+          if (giftHovered) giftLetter.classList.add('show');
+        });
+      } else {
+        giftLetter.classList.remove('show');
+        giftLetter.setAttribute('aria-hidden', 'true');
+        giftLetter.hidden = true;
+      }
     }
+
+    /* Trạng thái khởi tạo: thư luôn đóng, bất kể vị trí con trỏ hiện tại. */
+    setGiftLetterVisible(false);
 
     function updateGiftLetterPosition() {
       if (!giftHovered) return;
@@ -1037,6 +1063,14 @@
       if (e.pointerType !== 'mouse') return;
       if (e.target.closest('#control-panel') || e.target.closest('#gift-letter')) return;
 
+      /* Không raycast xuyên qua màn hình mở đầu. */
+      const landingScreen = document.getElementById('landing-screen');
+      if (!landingScreen.classList.contains('hidden')) {
+        setGiftOpen(false);
+        setGiftLetterVisible(false);
+        return;
+      }
+
       const giftActive = updatePointerRaycast(e.clientX, e.clientY).length > 0;
       setGiftOpen(giftActive);
       setGiftLetterVisible(giftActive);
@@ -1048,32 +1082,18 @@
       setGiftLetterVisible(false);
     });
 
-    // Điện thoại/tablet không có hover vật lý: chạm đúng vào hộp được xem là "hover".
-    // Chạm ra ngoài hộp sẽ đóng thư, nên thư không tự mở ở các vùng trống.
+    // Tương tác hộp quà trên mọi thiết bị.
+    // Các khung hình chỉ mang tính trang trí: không hover/chạm/click để hiện lời chúc.
     window.addEventListener('pointerdown', (e) => {
-      if (e.target.closest('#control-panel')) return;
+      if (e.target.closest('#control-panel') || e.target.closest('#gift-letter')) return;
 
       const giftIntersects = updatePointerRaycast(e.clientX, e.clientY);
-      if (e.pointerType === 'touch' || e.pointerType === 'pen') {
-        if (giftIntersects.length > 0) {
-          setGiftOpen(true);
-          setGiftLetterVisible(true);
-          return;
-        }
-
+      if (giftIntersects.length > 0) {
+        setGiftOpen(true);
+        setGiftLetterVisible(true);
+      } else {
         setGiftOpen(false);
         setGiftLetterVisible(false);
-        const intersects = raycaster.intersectObjects(photoSprites);
-        if (intersects.length > 0) {
-          openWishModal(intersects[0].object.userData.index);
-        }
-        return;
-      }
-
-      // Fallback cho thiết bị gửi pointerdown kiểu khác.
-      const intersects = raycaster.intersectObjects(photoSprites);
-      if (intersects.length > 0) {
-        openWishModal(intersects[0].object.userData.index);
       }
     });
 

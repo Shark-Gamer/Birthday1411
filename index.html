@@ -1765,11 +1765,11 @@
         const sprite = new THREE.Sprite(mat);
         // Khung ảnh lớn hơn trên mobile để hình không bị quá nhỏ.
         const mobile = isMobileLayout();
-        sprite.scale.set(mobile ? 1.20 : 1.05, mobile ? 1.60 : 1.40, 1);
+        sprite.scale.set(mobile ? 0.92 : 1.05, mobile ? 1.22 : 1.40, 1);
 
         const posConfig = photoPositions[i];
         const xCompression = mobile ? 0.86 : 1;
-        const radius = mobile ? Math.min(posConfig.r, 3.55) : posConfig.r;
+        const radius = mobile ? Math.min(posConfig.r, 3.15) : posConfig.r;
         sprite.position.x = Math.cos(posConfig.angle) * radius * xCompression;
         sprite.position.z = Math.sin(posConfig.angle) * radius;
         sprite.position.y = mobile ? posConfig.y * 0.82 : posConfig.y;
@@ -2164,11 +2164,13 @@
     function updateResponsiveCamera() {
       const mobile = isMobileLayout();
       if (mobile) {
-        camera.position.set(0, 2.25, 8.2);
-        camera.fov = 60;
+        camera.position.set(0, 2.45, 10.0);
+        camera.fov = 62;
+        mainGroup.scale.set(0.90, 0.90, 0.90);
       } else {
         camera.position.set(0, 3.5, 7.5);
         camera.fov = 60;
+        mainGroup.scale.set(1, 1, 1);
       }
       camera.updateProjectionMatrix();
     }

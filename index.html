@@ -765,10 +765,12 @@
       padding: 0;
       opacity: 0;
       visibility: hidden;
-      transform: translate(-50%, -50%) scale(0.72) rotate(-2deg);
+      --letter-scale: 1;
+      transform: translate(-50%, -50%) scale(calc(var(--letter-scale) * .72)) rotate(-2deg);
       transform-origin: center;
       transition: opacity .28s ease, transform .35s cubic-bezier(.2,.85,.25,1), visibility .28s ease;
       pointer-events: none;
+      max-width: none;
     }
 
     /* Bắt buộc ẩn tuyệt đối khi JS chưa cho phép hiển thị. */
@@ -779,12 +781,12 @@
     #gift-letter.show {
       opacity: 1;
       visibility: visible;
-      transform: translate(-50%, -50%) scale(1) rotate(-1deg);
+      transform: translate(-50%, -50%) scale(var(--letter-scale)) rotate(-1deg);
     }
 
     .letter-paper {
       position: relative;
-      padding: 24px 22px 20px;
+      padding: 18px 18px 16px;
       border: 1px solid rgba(80, 190, 255, .82);
       border-radius: 22px;
       background:
@@ -841,7 +843,7 @@
       z-index: 1;
       margin: 0 44px 7px 0;
       color: #d9f3ff;
-      font-size: 1.25rem;
+      font-size: 1.08rem;
       text-shadow: 0 0 10px rgba(0, 170, 255, .28);
     }
 
@@ -849,8 +851,8 @@
       position: relative;
       z-index: 1;
       margin: 0;
-      font-size: .94rem;
-      line-height: 1.65;
+      font-size: .84rem;
+      line-height: 1.48;
       color: #eef9ff;
     }
 
@@ -859,7 +861,7 @@
       margin: 0 0 13px;
       text-align: center;
       color: #9fe5ff;
-      font-size: .78rem;
+      font-size: .70rem;
       font-weight: 700;
       letter-spacing: .04em;
       text-transform: uppercase;
@@ -870,9 +872,9 @@
       display: grid;
       grid-template-columns: 1.12fr .88fr;
       grid-template-rows: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-      height: 205px;
-      margin: 16px 0 12px;
+      gap: 7px;
+      height: 150px;
+      margin: 10px 0 9px;
       z-index: 1;
     }
 
@@ -922,16 +924,16 @@
       margin-top: 2px;
       text-align: center;
       color: #a9ddf5;
-      font-size: .72rem;
-      line-height: 1.4;
+      font-size: .64rem;
+      line-height: 1.28;
     }
 
     .letter-sign {
       position: relative;
       z-index: 1;
-      margin-top: 13px;
+      margin-top: 9px;
       text-align: right;
-      font-size: .85rem;
+      font-size: .75rem;
       font-weight: 700;
       color: #bdeaff;
     }
@@ -941,26 +943,47 @@
         left: 50%;
         top: 50%;
         width: min(410px, 92vw);
-        max-height: calc(100vh - 20px);
-        max-height: calc(100dvh - 20px);
+        max-height: none;
       }
       #gift-letter.show {
-        transform: translate(-50%, -50%) scale(.88) rotate(0deg);
+        transform: translate(-50%, -50%) scale(var(--letter-scale)) rotate(0deg);
       }
       .letter-paper {
-        max-height: calc(100vh - 20px);
-        max-height: calc(100dvh - 20px);
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        padding: 20px 17px 18px;
+        max-height: none;
+        overflow: hidden;
+        padding: 15px 14px 13px;
       }
       .letter-gallery {
-        gap: 6px;
-        height: 175px;
-        margin-top: 13px;
+        gap: 5px;
+        height: 128px;
+        margin-top: 8px;
       }
       .letter-paper p {
-        font-size: .88rem;
+        font-size: .76rem;
+        line-height: 1.4;
+      }
+      .letter-paper h3 {
+        font-size: 1rem;
+        margin-bottom: 5px;
+      }
+      .letter-intro {
+        margin-bottom: 8px;
+        font-size: .64rem;
+      }
+      .letter-caption {
+        font-size: .58rem;
+        line-height: 1.22;
+      }
+      .letter-sign {
+        margin-top: 7px;
+        font-size: .68rem;
+      }
+      .letter-seal {
+        top: 10px;
+        right: 11px;
+        width: 30px;
+        height: 30px;
+        font-size: 15px;
       }
     }
 
@@ -1054,7 +1077,7 @@
     <div class="card">
       <h1>HAPPY BIRTHDAY</h1>
       <p>Bấm nút bên dưới để mở quà 💙</p>
-      <button class="btn-enter" onclick="startExperience()">KHÁM PHÁ VŨ TRỤ ✨</button>
+      <button class="btn-enter" onclick="startExperience()">KHÁM PHÁ THÔI NÀO ✨</button>
     </div>
   </div>
 
@@ -1090,22 +1113,22 @@
   <div id="gift-letter" aria-hidden="true" hidden>
     <div class="letter-paper">
       <div class="letter-seal">💌</div>
-      <h3>Gửi cậu, từ hộp quà 🎁</h3>
-      <div class="letter-intro">Một chút kỷ niệm dành riêng cho cậu ✨</div>
-      <p>Chúc cậu một tuổi mới thật rực rỡ, luôn vui vẻ, bình an và gặp thật nhiều điều may mắn. Mong mọi ước mơ của cậu từng bước trở thành hiện thực, và mỗi ngày đều có thật nhiều lý do để mỉm cười. Happy Birthday! ❤️</p>
+      <h3>Gửi cốt, Bảo Trân 🎁</h3>
+      <div class="letter-intro">Một chút quà nhỏ dành riêng cho cậu ✨</div>
+      <p>Happy Birthday! Bất ngờ chưa? 00 giờ hôm nay là m chính thức bước sang một tuổi mới rồi. Chúc m một tuổi mới thật rực rỡ, luôn vui vẻ, bình an và gặp thật nhiều điều may mắn. Mong mọi ước mơ của m từng bước trở thành hiện thực! Mới đây thôi mà t với m đã chơi với nhau tròn 10 năm rồi cũng không quá ngắn và cũng không quá dài, mọi khoảnh khắc chúng ta đi chơi chung đều là những kỷ niệm đẹp. Trong tương lai khi t với m tốt nghiệp cao đẳng, đại học thì không biết chúng ta còn giữ liên lạc hay còn chơi chung không, nhưng t mong nếu còn gặp lại thì tình chí cốt vẫn không phai mờ đi. T rất vui vì trong thanh xuân vui vẻ của t có hình ảnh của m trong đó. Cuối cùng chúc m một ngày sinh nhật vui vẻ nhé!!! ❤️</p>
       <div class="letter-gallery" aria-label="Một vài kỷ niệm">
-        <figure><img src="Ảnh1.jpg" alt="Kỷ niệm 1" loading="lazy" onerror="this.style.display='none'"></figure>
-        <figure><img src="Ảnh4.jpg" alt="Kỷ niệm 2" loading="lazy" onerror="this.style.display='none'"></figure>
-        <figure><img src="Ảnh8.jpg" alt="Kỷ niệm 3" loading="lazy" onerror="this.style.display='none'"></figure>
+        <figure><img src="Ảnh14.jpg" alt="Kỷ niệm 1" loading="lazy" onerror="this.style.display='none'"></figure>
+        <figure><img src="Ảnh16.1.jpg" alt="Kỷ niệm 2" loading="lazy" onerror="this.style.display='none'"></figure>
+        <figure><img src="Ảnh12.1.jpg" alt="Kỷ niệm 3" loading="lazy" onerror="this.style.display='none'"></figure>
       </div>
       <div class="letter-caption">Những khoảnh khắc nhỏ, nhưng đủ để làm ngày hôm nay đặc biệt hơn. 💖</div>
-      <div class="letter-sign">— Một lời chúc thật đặc biệt ✨</div>
+      <div class="letter-sign">— Một lời chúc thật đặc biệt của Quốc Đạt ✨</div>
     </div>
   </div>
 
   <!-- NHẠC NỀN -->
   <audio id="bg-music" loop preload="auto">
-    <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-437.mp3" type="audio/mpeg">
+    <source src="music-happybirthday.mp3" type="audio/mpeg">
   </audio>
 
   <div id="space-effects" aria-hidden="true">
@@ -1134,7 +1157,7 @@
     <div class="prompt-cloud">Mở hộp quà đi ✨</div>
   </div>
 
-  <script>
+  <script>  <!-- Đổi ảnh ở dòng 1752 đến 1755-->
     const wishesData = [
       {
         img: "Ảnh11.jpg",
@@ -1142,7 +1165,7 @@
         text: "Chúc cậu một tuổi mới thật rực rỡ, luôn giữ nụ cười tươi rạng rỡ và gặt hái thêm nhiều thành công mới!"
       },
       {
-        img: "Ảnh1.jpg",
+        img: "Ảnh17.jpg",
         title: "Ngọt Ngào & Hạnh Phúc 💖",
         text: "Mong rằng mỗi ngày trong tuổi mới của cậu đều ngập tràn niềm vui, sự ngọt ngào và những ký ức tuyệt vời."
       },
@@ -1152,7 +1175,7 @@
         text: "Cậu luôn là ngôi sao tỏa sáng nhất. Hãy luôn tự tin, mạnh mẽ bước tiếp và theo đuổi ước mơ của mình nhé!"
       },
       {
-        img: "Ảnh3.jpg",
+        img: "Ảnh15.jpg",
         title: "Tuổi Mới Bình An 🎂",
         text: "Happy Birthday! Chúc cậu có một ngày sinh nhật thật ấm áp bên người thân yêu, luôn xinh đẹp và may mắn!"
       },
@@ -1750,9 +1773,9 @@
     // Tổng cộng 15 khung hình; dùng các ảnh hiện có và lặp lại vài ảnh cuối
     // để không cần thay đổi cấu trúc dữ liệu lời chúc hiện tại.
     const photoImageSources = [
-      "Ảnh1.jpg", "Ảnh2.jpg", "Ảnh3.jpg", "Ảnh4.jpg", "Ảnh5.jpg",
-      "Ảnh6.jpg", "Ảnh7.jpg", "Ảnh8.jpg", "Ảnh9.jpg", "Ảnh10.jpg",
-      "Ảnh11.jpg", "Ảnh1.jpg", "Ảnh2.jpg", "Ảnh3.jpg", "Ảnh4.jpg"
+      "Ảnh11.jpg", "Ảnh17.jpg", "Ảnh2.jpg", "Ảnh15.jpg", "Ảnh4.jpg",
+      "Ảnh5.jpg", "Ảnh6.jpg", "Ảnh7.jpg", "Ảnh8.jpg", "Ảnh9.jpg",
+      "Ảnh11.jpg", "Ảnh18.jpg", "Ảnh19.jpg", "Ảnh20.jpg", "Ảnh1.jpg"
     ];
 
     function isMobileLayout() {
@@ -1802,7 +1825,11 @@
         giftLetter.hidden = false;
         giftLetter.setAttribute('aria-hidden', 'false');
         requestAnimationFrame(() => {
-          if (giftHovered) giftLetter.classList.add('show');
+          if (giftHovered) {
+            fitGiftLetterToViewport();
+            giftLetter.classList.add('show');
+            requestAnimationFrame(fitGiftLetterToViewport);
+          }
         });
       } else {
         giftLetter.classList.remove('show');
@@ -1814,6 +1841,14 @@
     /* Trạng thái khởi tạo: thư luôn đóng, bất kể vị trí con trỏ hiện tại. */
     setGiftLetterVisible(false);
 
+    // Ảnh trong thư tải xong có thể làm thay đổi chiều cao, nên tính lại tỷ lệ.
+    giftLetter.querySelectorAll('img').forEach(img => {
+      if (img.complete) {
+        requestAnimationFrame(fitGiftLetterToViewport);
+      } else {
+        img.addEventListener('load', fitGiftLetterToViewport, { once: true });
+      }
+    });
 
     const giftPrompt = document.getElementById('gift-prompt');
     const giftPromptWorldPos = new THREE.Vector3();
@@ -1862,6 +1897,40 @@
 
       giftLetter.style.left = `${x}px`;
       giftLetter.style.top = `${y}px`;
+    }
+
+
+    // Tự động thu nhỏ toàn bộ lá thư để nội dung luôn nằm gọn trong màn hình.
+    // Không cắt chữ, không ẩn ảnh và không xóa bất kỳ nội dung nào.
+    function fitGiftLetterToViewport() {
+      if (!giftLetter || giftLetter.hidden) return;
+
+      const paper = giftLetter.querySelector('.letter-paper');
+      if (!paper) return;
+
+      // Đo ở scale 1 để tính tỷ lệ cần thiết.
+      const previousScale = giftLetter.style.getPropertyValue('--letter-scale');
+      giftLetter.style.setProperty('--letter-scale', '1');
+
+      const rect = paper.getBoundingClientRect();
+      const naturalWidth = Math.max(rect.width, paper.scrollWidth);
+      const naturalHeight = Math.max(rect.height, paper.scrollHeight);
+
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+
+      const horizontalMargin = Math.min(28, vw * 0.04);
+      const verticalMargin = Math.min(24, vh * 0.035);
+
+      const widthScale = (vw - horizontalMargin * 2) / naturalWidth;
+      const heightScale = (vh - verticalMargin * 2) / naturalHeight;
+
+      // Không phóng to hơn 1; chỉ thu nhỏ khi cần để thấy toàn bộ lá thư.
+      const fitScale = Math.max(0.48, Math.min(1, widthScale, heightScale));
+      giftLetter.style.setProperty('--letter-scale', fitScale.toFixed(4));
+
+      // Giữ vị trí an toàn sau khi thay đổi scale.
+      updateGiftLetterPosition();
     }
 
     function updatePointerRaycast(clientX, clientY) {
@@ -2187,6 +2256,7 @@
       updateResponsiveCamera();
       renderer.setSize(window.innerWidth, window.innerHeight);
       resizeMeteorCanvas();
+      if (giftHovered) fitGiftLetterToViewport();
     });
 
     // Giảm chuyển động nếu hệ điều hành của người dùng yêu cầu.

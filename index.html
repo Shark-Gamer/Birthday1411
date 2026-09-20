@@ -250,7 +250,450 @@
       accent-color: #ff0066;
     }
 
+
+
+    /* ==============================
+       HIỆU ỨNG VŨ TRỤ - GIAO DIỆN CHÍNH
+       ============================== */
+    #space-effects {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      isolation: isolate;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(32, 0, 56, .26) 0%, rgba(4, 0, 12, 0) 34%),
+        radial-gradient(circle at 12% 22%, rgba(0, 197, 255, .10) 0%, rgba(0, 197, 255, 0) 27%),
+        radial-gradient(circle at 86% 26%, rgba(154, 79, 255, .13) 0%, rgba(154, 79, 255, 0) 30%),
+        radial-gradient(circle at 70% 78%, rgba(255, 0, 149, .10) 0%, rgba(255, 0, 149, 0) 30%),
+        linear-gradient(180deg, #000006 0%, #03000a 48%, #010003 100%);
+    }
+
+    .space-nebula,
+    .space-aurora-main,
+    .space-stars,
+    .space-dust {
+      position: absolute;
+      inset: -18%;
+      pointer-events: none;
+    }
+
+    .space-nebula {
+      z-index: 0;
+      filter: blur(34px) saturate(150%);
+      opacity: .75;
+      background:
+        radial-gradient(42% 24% at 18% 34%, rgba(0, 205, 255, .17), rgba(0, 205, 255, 0) 74%),
+        radial-gradient(34% 22% at 80% 34%, rgba(152, 70, 255, .18), rgba(152, 70, 255, 0) 76%),
+        radial-gradient(40% 24% at 50% 73%, rgba(255, 0, 152, .12), rgba(255, 0, 152, 0) 78%),
+        radial-gradient(24% 18% at 40% 24%, rgba(80, 255, 208, .08), rgba(80, 255, 208, 0) 74%);
+      animation: nebulaPulse 15s ease-in-out infinite alternate;
+    }
+
+    .space-aurora-main {
+      z-index: 1;
+      inset: -42% -26%;
+      filter: blur(28px) saturate(165%);
+      opacity: .82;
+      transform: rotate(-10deg) scale(1.06);
+    }
+
+    .space-aurora-main > span {
+      position: absolute;
+      display: block;
+      border-radius: 50%;
+      mix-blend-mode: screen;
+      will-change: transform, opacity;
+    }
+
+    /* Những dải "màn cực quang" mảnh tạo cảm giác cực quang thật hơn. */
+    .space-aurora-main::before,
+    .space-aurora-main::after {
+      content: '';
+      position: absolute;
+      pointer-events: none;
+      left: -18%;
+      width: 136%;
+      height: 58%;
+      border-radius: 50%;
+      mix-blend-mode: screen;
+      filter: blur(17px);
+      opacity: .55;
+      will-change: transform, opacity;
+    }
+
+    .space-aurora-main::before {
+      top: 8%;
+      background:
+        repeating-linear-gradient(102deg,
+          rgba(0,255,230,0) 0%,
+          rgba(0,255,230,.08) 5%,
+          rgba(82,255,194,.17) 8%,
+          rgba(97,171,255,.06) 11%,
+          rgba(0,255,230,0) 16%),
+        linear-gradient(104deg, transparent 0%, rgba(0,255,228,.08) 32%, rgba(182,83,255,.14) 55%, transparent 80%);
+      transform: rotate(-8deg) skewX(-14deg) translate3d(-3%, 0, 0);
+      animation: auroraCurtainA 16s ease-in-out infinite;
+    }
+
+    .space-aurora-main::after {
+      top: 19%;
+      background:
+        repeating-linear-gradient(108deg,
+          rgba(255,0,173,0) 0%,
+          rgba(121,91,255,.07) 7%,
+          rgba(255,78,203,.14) 10%,
+          rgba(0,228,255,.09) 13%,
+          rgba(255,0,173,0) 18%),
+        linear-gradient(112deg, transparent 5%, rgba(81,227,255,.07) 36%, rgba(255,0,165,.12) 63%, transparent 92%);
+      transform: rotate(10deg) skewX(12deg) translate3d(4%, 0, 0);
+      animation: auroraCurtainB 19s ease-in-out infinite;
+    }
+
+    .aurora-band-a {
+      width: 78%;
+      height: 26%;
+      left: -6%;
+      top: 20%;
+      background: linear-gradient(105deg,
+        rgba(0,255,225,0) 0%,
+        rgba(0,255,225,.24) 24%,
+        rgba(75,255,179,.18) 42%,
+        rgba(0,155,255,.14) 58%,
+        rgba(0,255,225,0) 82%);
+      transform: rotate(-9deg) skewX(-18deg);
+      animation: mainAuroraA 14s ease-in-out infinite alternate;
+    }
+
+    .aurora-band-b {
+      width: 70%;
+      height: 24%;
+      right: -4%;
+      top: 30%;
+      background: linear-gradient(112deg,
+        rgba(121,77,255,0) 4%,
+        rgba(134,86,255,.18) 25%,
+        rgba(240,74,255,.21) 48%,
+        rgba(0,193,255,.15) 68%,
+        rgba(0,193,255,0) 92%);
+      transform: rotate(11deg) skewX(17deg);
+      animation: mainAuroraB 17s ease-in-out infinite alternate;
+    }
+
+    .aurora-band-c {
+      width: 72%;
+      height: 22%;
+      left: 15%;
+      bottom: 2%;
+      background: linear-gradient(108deg,
+        rgba(255,0,154,0) 5%,
+        rgba(255,0,154,.13) 28%,
+        rgba(122,88,255,.19) 48%,
+        rgba(0,240,219,.13) 73%,
+        rgba(0,240,219,0) 94%);
+      transform: rotate(-4deg) skewX(-13deg);
+      animation: mainAuroraC 19s ease-in-out infinite alternate;
+    }
+
+    .aurora-band-d {
+      width: 48%;
+      height: 18%;
+      left: 27%;
+      top: 40%;
+      background: radial-gradient(ellipse at center,
+        rgba(255,255,255,.06) 0%,
+        rgba(128,230,255,.13) 22%,
+        rgba(166,93,255,.13) 44%,
+        rgba(255,0,161,0) 78%);
+      filter: blur(18px);
+      animation: mainAuroraD 11s ease-in-out infinite alternate;
+    }
+
+    .aurora-band-e {
+      width: 64%;
+      height: 17%;
+      right: 2%;
+      top: 9%;
+      background: linear-gradient(107deg,
+        rgba(0,255,228,0) 6%,
+        rgba(75,255,196,.11) 25%,
+        rgba(103,187,255,.19) 39%,
+        rgba(183,83,255,.17) 57%,
+        rgba(255,0,168,.10) 70%,
+        rgba(0,255,228,0) 94%);
+      filter: blur(15px);
+      transform: rotate(-6deg) skewX(-18deg);
+      animation: mainAuroraE 13s ease-in-out infinite alternate;
+    }
+
+    .aurora-band-f {
+      width: 58%;
+      height: 15%;
+      left: 8%;
+      top: 45%;
+      background: linear-gradient(110deg,
+        rgba(0,201,255,0) 5%,
+        rgba(0,255,230,.10) 25%,
+        rgba(64,255,203,.15) 42%,
+        rgba(124,113,255,.14) 60%,
+        rgba(255,0,174,.07) 77%,
+        rgba(0,201,255,0) 95%);
+      filter: blur(17px);
+      transform: rotate(8deg) skewX(14deg);
+      animation: mainAuroraF 15s ease-in-out infinite alternate-reverse;
+    }
+
+    .aurora-band-g {
+      width: 90%;
+      height: 10%;
+      left: 7%;
+      bottom: 13%;
+      background: linear-gradient(94deg,
+        rgba(0,255,231,0) 5%,
+        rgba(0,255,221,.07) 25%,
+        rgba(97,133,255,.11) 44%,
+        rgba(255,0,162,.10) 61%,
+        rgba(0,255,221,.05) 80%,
+        rgba(0,255,221,0) 96%);
+      filter: blur(20px);
+      transform: rotate(-2deg);
+      animation: mainAuroraG 21s ease-in-out infinite alternate;
+    }
+
+    /* Mây thiên hà xoáy rất chậm phía sau khung 3D. */
+    .space-galaxy-cloud,
+    .space-cosmic-glow,
+    .space-vortex,
+    .space-constellation {
+      position: absolute;
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
+
+    .space-galaxy-cloud {
+      z-index: 0;
+      inset: -35%;
+      opacity: .43;
+      filter: blur(30px) saturate(160%);
+      background:
+        conic-gradient(from 10deg at 50% 50%,
+          rgba(0,255,228,0) 0deg,
+          rgba(0,255,228,.06) 32deg,
+          rgba(103,116,255,.15) 68deg,
+          rgba(224,69,255,.11) 108deg,
+          rgba(0,205,255,.07) 150deg,
+          rgba(255,0,163,.10) 204deg,
+          rgba(0,255,228,0) 252deg,
+          rgba(122,89,255,.08) 306deg,
+          rgba(0,255,228,0) 360deg);
+      mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0 33%, rgba(0,0,0,.8) 48%, transparent 78%);
+      animation: galaxyCloudSpin 42s linear infinite;
+    }
+
+    .space-cosmic-glow {
+      z-index: 1;
+      inset: 6% 8%;
+      opacity: .58;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 49%, rgba(255,67,185,.08) 0%, rgba(116,81,255,.10) 15%, rgba(0,220,255,.05) 28%, rgba(0,0,0,0) 54%),
+        radial-gradient(ellipse at 50% 57%, rgba(0,232,255,.09) 0%, rgba(0,232,255,0) 42%);
+      filter: blur(12px);
+      animation: cosmicGlow 9s ease-in-out infinite alternate;
+    }
+
+    .space-vortex {
+      z-index: 2;
+      width: min(74vmin, 980px);
+      height: min(23vmin, 310px);
+      left: 50%;
+      top: 55%;
+      border: 1px solid rgba(99,224,255,.09);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotate(-8deg) scale(.92);
+      box-shadow:
+        0 0 16px rgba(0,225,255,.08),
+        0 0 44px rgba(118,75,255,.05),
+        inset 0 0 28px rgba(255,0,170,.045);
+      opacity: .72;
+      animation: vortexFloat 10s ease-in-out infinite alternate;
+    }
+
+    .space-vortex::before,
+    .space-vortex::after {
+      content: '';
+      position: absolute;
+      inset: 8% 11%;
+      border-radius: 50%;
+      border: 1px solid rgba(212,116,255,.08);
+      box-shadow: 0 0 20px rgba(171,92,255,.06);
+    }
+    .space-vortex::after {
+      inset: 21% 22%;
+      border-color: rgba(0,240,225,.08);
+      box-shadow: 0 0 18px rgba(0,240,225,.06);
+    }
+
+    .space-constellation {
+      z-index: 4;
+      inset: 0;
+      opacity: .42;
+      background:
+        linear-gradient(126deg, transparent 0 27%, rgba(110,218,255,.05) 27.15%, transparent 27.35% 46%, rgba(195,112,255,.045) 46.15%, transparent 46.35% 100%),
+        linear-gradient(34deg, transparent 0 56%, rgba(255,94,201,.04) 56.15%, transparent 56.4% 100%);
+      mask-image: radial-gradient(ellipse at center, transparent 0 34%, black 58%, transparent 92%);
+      animation: constellationDrift 28s ease-in-out infinite alternate;
+    }
+
+    .space-stars {
+      z-index: 2;
+      inset: 0;
+      opacity: .52;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.95) 0 1px, transparent 1.8px),
+        radial-gradient(circle, rgba(177,236,255,.78) 0 1px, transparent 1.7px),
+        radial-gradient(circle, rgba(219,183,255,.72) 0 1px, transparent 1.6px);
+      background-size: 97px 97px, 157px 157px, 223px 223px;
+      background-position: 16px 8px, 47px 61px, 88px 22px;
+      animation: starParallax 24s linear infinite;
+    }
+
+    .space-stars::before,
+    .space-stars::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-repeat: no-repeat;
+      mix-blend-mode: screen;
+      opacity: .65;
+    }
+
+    .space-stars::before {
+      background:
+        radial-gradient(circle at 9% 19%, rgba(255,255,255,.95) 0 1.4px, transparent 2.3px),
+        radial-gradient(circle at 27% 64%, rgba(132,225,255,.78) 0 1.1px, transparent 2px),
+        radial-gradient(circle at 44% 24%, rgba(255,185,244,.80) 0 1.1px, transparent 2px),
+        radial-gradient(circle at 63% 71%, rgba(255,255,255,.92) 0 1.25px, transparent 2.1px),
+        radial-gradient(circle at 82% 16%, rgba(196,181,255,.78) 0 1.15px, transparent 2px),
+        radial-gradient(circle at 92% 58%, rgba(124,232,255,.75) 0 1.15px, transparent 2px);
+      animation: twinkleStars 4.8s ease-in-out infinite alternate;
+    }
+
+    .space-stars::after {
+      background:
+        radial-gradient(circle at 18% 82%, rgba(255,255,255,.8) 0 1.2px, transparent 2px),
+        radial-gradient(circle at 36% 11%, rgba(126,228,255,.72) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 58% 38%, rgba(224,181,255,.72) 0 1px, transparent 1.9px),
+        radial-gradient(circle at 73% 87%, rgba(255,255,255,.8) 0 1.1px, transparent 2px),
+        radial-gradient(circle at 88% 76%, rgba(92,255,215,.68) 0 1px, transparent 1.9px);
+      animation: twinkleStars 7s ease-in-out 1.2s infinite alternate-reverse;
+    }
+
+    .space-dust {
+      z-index: 3;
+      inset: 0;
+      opacity: .44;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(140,80,255,.10) 0 1px, transparent 1.5px);
+      background-size: 13px 13px;
+      mask-image: radial-gradient(ellipse at center, black 0%, rgba(0,0,0,.9) 42%, transparent 84%);
+      animation: dustDrift 22s linear infinite;
+    }
+
+    @keyframes nebulaPulse {
+      0%   { transform: translate3d(-2%, 1%, 0) scale(1); opacity: .55; }
+      45%  { transform: translate3d(3%, -2%, 0) scale(1.06); opacity: .78; }
+      100% { transform: translate3d(-3%, 2%, 0) scale(1.11); opacity: .66; }
+    }
+
+    @keyframes mainAuroraA {
+      0%   { transform: translate3d(-7%, 7%, 0) rotate(-12deg) skewX(-20deg) scaleX(.92); opacity: .45; }
+      50%  { transform: translate3d(6%, -2%, 0) rotate(-6deg) skewX(-10deg) scaleX(1.06); opacity: .90; }
+      100% { transform: translate3d(13%, 5%, 0) rotate(1deg) skewX(-17deg) scaleX(1.13); opacity: .62; }
+    }
+
+    @keyframes mainAuroraB {
+      0%   { transform: translate3d(8%, -5%, 0) rotate(8deg) skewX(18deg) scaleX(.94); opacity: .42; }
+      50%  { transform: translate3d(-6%, 4%, 0) rotate(14deg) skewX(8deg) scaleX(1.08); opacity: .92; }
+      100% { transform: translate3d(-14%, -1%, 0) rotate(4deg) skewX(20deg) scaleX(1.14); opacity: .57; }
+    }
+
+    @keyframes mainAuroraC {
+      0%   { transform: translate3d(5%, 5%, 0) rotate(-1deg) skewX(-11deg) scaleX(.9); opacity: .35; }
+      55%  { transform: translate3d(-7%, -3%, 0) rotate(7deg) skewX(-6deg) scaleX(1.10); opacity: .78; }
+      100% { transform: translate3d(9%, 1%, 0) rotate(-5deg) skewX(-17deg) scaleX(1.02); opacity: .50; }
+    }
+
+    @keyframes mainAuroraD {
+      0%   { transform: translate3d(-8%, 4%, 0) scale(.84) rotate(-6deg); opacity: .22; }
+      50%  { transform: translate3d(4%, -5%, 0) scale(1.16) rotate(3deg); opacity: .65; }
+      100% { transform: translate3d(10%, 5%, 0) scale(.98) rotate(8deg); opacity: .28; }
+    }
+
+    @keyframes auroraCurtainA {
+      0%   { transform: rotate(-11deg) skewX(-17deg) translate3d(-8%, 2%, 0) scaleX(.95); opacity: .22; }
+      45%  { transform: rotate(-6deg) skewX(-8deg) translate3d(4%, -2%, 0) scaleX(1.08); opacity: .66; }
+      100% { transform: rotate(-1deg) skewX(-15deg) translate3d(13%, 4%, 0) scaleX(1.16); opacity: .38; }
+    }
+    @keyframes auroraCurtainB {
+      0%   { transform: rotate(12deg) skewX(14deg) translate3d(9%, -2%, 0) scaleX(.94); opacity: .24; }
+      50%  { transform: rotate(6deg) skewX(6deg) translate3d(-2%, 3%, 0) scaleX(1.08); opacity: .62; }
+      100% { transform: rotate(1deg) skewX(13deg) translate3d(-12%, -1%, 0) scaleX(1.14); opacity: .36; }
+    }
+    @keyframes mainAuroraE {
+      0% { transform: translate3d(6%, -4%, 0) rotate(-9deg) skewX(-20deg) scaleX(.92); opacity: .28; }
+      100% { transform: translate3d(-8%, 5%, 0) rotate(3deg) skewX(-9deg) scaleX(1.16); opacity: .58; }
+    }
+    @keyframes mainAuroraF {
+      0% { transform: translate3d(-9%, 6%, 0) rotate(5deg) skewX(15deg) scaleX(.90); opacity: .24; }
+      100% { transform: translate3d(12%, -4%, 0) rotate(-6deg) skewX(4deg) scaleX(1.15); opacity: .50; }
+    }
+    @keyframes mainAuroraG {
+      0% { transform: translate3d(-10%, 0, 0) rotate(-5deg) scaleX(.88); opacity: .20; }
+      100% { transform: translate3d(11%, -6%, 0) rotate(4deg) scaleX(1.08); opacity: .40; }
+    }
+    @keyframes galaxyCloudSpin {
+      0% { transform: rotate(0deg) scale(1); opacity: .30; }
+      50% { transform: rotate(180deg) scale(1.05); opacity: .48; }
+      100% { transform: rotate(360deg) scale(1); opacity: .34; }
+    }
+    @keyframes cosmicGlow {
+      0% { transform: scale(.95) translate3d(-1%, 1%, 0); opacity: .32; }
+      100% { transform: scale(1.06) translate3d(1%, -1%, 0); opacity: .68; }
+    }
+    @keyframes vortexFloat {
+      0% { transform: translate(-50%, -50%) rotate(-10deg) scale(.91); opacity: .45; }
+      50% { transform: translate(-50%, -48%) rotate(1deg) scale(1); opacity: .78; }
+      100% { transform: translate(-50%, -52%) rotate(8deg) scale(.96); opacity: .52; }
+    }
+    @keyframes constellationDrift {
+      0% { transform: translate3d(-10px, 6px, 0) scale(1); opacity: .20; }
+      100% { transform: translate3d(12px, -8px, 0) scale(1.03); opacity: .44; }
+    }
+
+    @keyframes starParallax {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(-18px, 10px, 0) scale(1.02); }
+      100% { transform: translate3d(8px, -14px, 0) scale(1); }
+    }
+
+    @keyframes twinkleStars {
+      0% { opacity: .25; transform: scale(.99); }
+      50% { opacity: .80; transform: scale(1.01); }
+      100% { opacity: .38; transform: scale(1); }
+    }
+
+    @keyframes dustDrift {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(14px, -8px, 0) scale(1.025); }
+      100% { transform: translate3d(-10px, 12px, 0) scale(1); }
+    }
+
     #canvas-container {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
       width: 100%;
       height: 100%;
     }
@@ -495,6 +938,25 @@
   <audio id="bg-music" loop preload="auto">
     <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-437.mp3" type="audio/mpeg">
   </audio>
+
+  <div id="space-effects" aria-hidden="true">
+    <div class="space-nebula"></div>
+    <div class="space-galaxy-cloud"></div>
+    <div class="space-aurora-main">
+      <span class="aurora-band-a"></span>
+      <span class="aurora-band-b"></span>
+      <span class="aurora-band-c"></span>
+      <span class="aurora-band-d"></span>
+      <span class="aurora-band-e"></span>
+      <span class="aurora-band-f"></span>
+      <span class="aurora-band-g"></span>
+    </div>
+    <div class="space-cosmic-glow"></div>
+    <div class="space-vortex"></div>
+    <div class="space-constellation"></div>
+    <div class="space-stars"></div>
+    <div class="space-dust"></div>
+  </div>
 
   <div id="canvas-container"></div>
   <canvas id="shooting-star-canvas" aria-hidden="true"></canvas>
@@ -887,6 +1349,248 @@
     const galaxyPoints = new THREE.Points(galaxyGeo, galaxyMat);
     mainGroup.add(galaxyPoints);
 
+    // Bụi sao lấp lánh sâu trong không gian, tạo thêm chiều sâu cho cảnh.
+    const cosmicDustCount = 1700;
+    const cosmicDustGeo = new THREE.BufferGeometry();
+    const cosmicDustPos = new Float32Array(cosmicDustCount * 3);
+    for (let i = 0; i < cosmicDustCount; i++) {
+      const r = 5.5 + Math.random() * 11;
+      const a = Math.random() * Math.PI * 2;
+      const spread = (Math.random() - 0.5) * 6.0;
+      cosmicDustPos[i * 3] = Math.cos(a) * r + (Math.random() - 0.5) * 2.0;
+      cosmicDustPos[i * 3 + 1] = spread;
+      cosmicDustPos[i * 3 + 2] = Math.sin(a) * r + (Math.random() - 0.5) * 2.0;
+    }
+    cosmicDustGeo.setAttribute('position', new THREE.BufferAttribute(cosmicDustPos, 3));
+    const cosmicDustMat = new THREE.PointsMaterial({
+      color: 0xb9a7ff,
+      size: 0.022,
+      map: particleTexture,
+      transparent: true,
+      opacity: 0.46,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    const cosmicDust = new THREE.Points(cosmicDustGeo, cosmicDustMat);
+    mainGroup.add(cosmicDust);
+
+    // Hai quỹ đạo phát sáng rất nhẹ bao quanh hộp quà.
+    const orbitMatA = new THREE.MeshBasicMaterial({
+      color: 0x6cefff,
+      transparent: true,
+      opacity: 0.26,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    const orbitMatB = new THREE.MeshBasicMaterial({
+      color: 0xe36dff,
+      transparent: true,
+      opacity: 0.20,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    const orbitA = new THREE.Mesh(new THREE.TorusGeometry(3.05, 0.012, 8, 160), orbitMatA);
+    const orbitB = new THREE.Mesh(new THREE.TorusGeometry(3.55, 0.010, 8, 160), orbitMatB);
+    orbitA.rotation.set(Math.PI * 0.48, 0.10, 0.12);
+    orbitB.rotation.set(Math.PI * 0.62, -0.18, -0.08);
+    orbitA.position.y = 0.30;
+    orbitB.position.y = 0.25;
+    mainGroup.add(orbitA, orbitB);
+
+    gsap.to(orbitA.rotation, {
+      z: orbitA.rotation.z + Math.PI * 2,
+      duration: 18,
+      repeat: -1,
+      ease: 'none'
+    });
+    gsap.to(orbitB.rotation, {
+      x: orbitB.rotation.x - Math.PI * 2,
+      duration: 24,
+      repeat: -1,
+      ease: 'none'
+    });
+    gsap.to(cosmicDust.rotation, {
+      y: Math.PI * 2,
+      x: 0.18,
+      duration: 70,
+      repeat: -1,
+      ease: 'none'
+    });
+    gsap.to(cosmicDustMat, {
+      opacity: 0.62,
+      duration: 3.5,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut'
+    });
+
+    // Cụm sao sâu 3D: nhiều lớp khoảng cách để không gian có chiều sâu hơn.
+    const deepStarCount = window.innerWidth <= 700 ? 900 : 1500;
+    const deepStarGeo = new THREE.BufferGeometry();
+    const deepStarPos = new Float32Array(deepStarCount * 3);
+    const deepStarColors = new Float32Array(deepStarCount * 3);
+    for (let i = 0; i < deepStarCount; i++) {
+      const radius = 13 + Math.random() * 26;
+      const u = Math.random() * 2 - 1;
+      const theta = Math.random() * Math.PI * 2;
+      const s = Math.sqrt(1 - u * u);
+      deepStarPos[i * 3] = Math.cos(theta) * s * radius;
+      deepStarPos[i * 3 + 1] = u * radius * 0.62;
+      deepStarPos[i * 3 + 2] = Math.sin(theta) * s * radius;
+      const tint = Math.random();
+      if (tint < 0.30) {
+        deepStarColors[i * 3] = 0.34;
+        deepStarColors[i * 3 + 1] = 0.72;
+        deepStarColors[i * 3 + 2] = 1.00;
+      } else if (tint < 0.56) {
+        deepStarColors[i * 3] = 0.72;
+        deepStarColors[i * 3 + 1] = 0.48;
+        deepStarColors[i * 3 + 2] = 1.00;
+      } else if (tint < 0.74) {
+        deepStarColors[i * 3] = 0.55;
+        deepStarColors[i * 3 + 1] = 1.00;
+        deepStarColors[i * 3 + 2] = 0.91;
+      } else {
+        deepStarColors[i * 3] = 1.00;
+        deepStarColors[i * 3 + 1] = 0.84;
+        deepStarColors[i * 3 + 2] = 0.97;
+      }
+    }
+    deepStarGeo.setAttribute('position', new THREE.BufferAttribute(deepStarPos, 3));
+    deepStarGeo.setAttribute('color', new THREE.BufferAttribute(deepStarColors, 3));
+    const deepStarMat = new THREE.PointsMaterial({
+      size: window.innerWidth <= 700 ? 0.030 : 0.036,
+      map: particleTexture,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.64,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    const deepStars = new THREE.Points(deepStarGeo, deepStarMat);
+    scene.add(deepStars);
+
+    const brightStarCount = window.innerWidth <= 700 ? 70 : 130;
+    const brightStarGeo = new THREE.BufferGeometry();
+    const brightStarPos = new Float32Array(brightStarCount * 3);
+    for (let i = 0; i < brightStarCount; i++) {
+      const radius = 9 + Math.random() * 18;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(Math.random() * 2 - 1);
+      brightStarPos[i * 3] = Math.sin(phi) * Math.cos(theta) * radius;
+      brightStarPos[i * 3 + 1] = Math.cos(phi) * radius * 0.55;
+      brightStarPos[i * 3 + 2] = Math.sin(phi) * Math.sin(theta) * radius;
+    }
+    brightStarGeo.setAttribute('position', new THREE.BufferAttribute(brightStarPos, 3));
+    const brightStarMat = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: window.innerWidth <= 700 ? 0.060 : 0.075,
+      map: particleTexture,
+      transparent: true,
+      opacity: 0.78,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    const brightStars = new THREE.Points(brightStarGeo, brightStarMat);
+    scene.add(brightStars);
+
+    gsap.to(deepStars.rotation, {
+      y: Math.PI * 2,
+      x: 0.12,
+      duration: 150,
+      repeat: -1,
+      ease: 'none'
+    });
+    gsap.to(brightStars.rotation, {
+      y: -Math.PI * 2,
+      z: 0.20,
+      duration: 92,
+      repeat: -1,
+      ease: 'none'
+    });
+    gsap.to(brightStarMat, {
+      opacity: 0.95,
+      duration: 2.6,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut'
+    });
+
+    // Vòng năng lượng 3D quanh hộp: chuyển động lệch pha để tạo chiều sâu.
+    const energyRingA = new THREE.Mesh(
+      new THREE.TorusGeometry(2.55, 0.018, 8, 180),
+      new THREE.MeshBasicMaterial({ color: 0x55f6ff, transparent: true, opacity: 0.22, blending: THREE.AdditiveBlending, depthWrite: false })
+    );
+    const energyRingB = new THREE.Mesh(
+      new THREE.TorusGeometry(2.95, 0.014, 8, 180),
+      new THREE.MeshBasicMaterial({ color: 0xf15cff, transparent: true, opacity: 0.17, blending: THREE.AdditiveBlending, depthWrite: false })
+    );
+    const energyRingC = new THREE.Mesh(
+      new THREE.TorusGeometry(4.10, 0.010, 8, 200),
+      new THREE.MeshBasicMaterial({ color: 0x9b7aff, transparent: true, opacity: 0.11, blending: THREE.AdditiveBlending, depthWrite: false })
+    );
+    energyRingA.rotation.set(Math.PI * 0.44, 0.18, 0.04);
+    energyRingB.rotation.set(Math.PI * 0.62, -0.25, 0.12);
+    energyRingC.rotation.set(Math.PI * 0.52, 0.04, -0.22);
+    energyRingA.position.y = 0.55;
+    energyRingB.position.y = 0.48;
+    energyRingC.position.y = 0.32;
+    mainGroup.add(energyRingA, energyRingB, energyRingC);
+
+    gsap.to(energyRingA.rotation, { y: energyRingA.rotation.y + Math.PI * 2, duration: 11, repeat: -1, ease: 'none' });
+    gsap.to(energyRingB.rotation, { x: energyRingB.rotation.x - Math.PI * 2, duration: 16, repeat: -1, ease: 'none' });
+    gsap.to(energyRingC.rotation, { z: energyRingC.rotation.z + Math.PI * 2, duration: 22, repeat: -1, ease: 'none' });
+    gsap.to(energyRingA.material, { opacity: 0.34, duration: 2.1, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+    gsap.to(energyRingB.material, { opacity: 0.25, duration: 2.8, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 0.6 });
+
+    // Vầng hào quang hình cầu rất nhẹ quanh hộp, như một "bong bóng" năng lượng.
+    const energySphere = new THREE.Mesh(
+      new THREE.SphereGeometry(2.18, 32, 24),
+      new THREE.MeshBasicMaterial({ color: 0xb56cff, transparent: true, opacity: 0.035, wireframe: true, blending: THREE.AdditiveBlending, depthWrite: false })
+    );
+    mainGroup.add(energySphere);
+    gsap.to(energySphere.scale, {
+      x: 1.16, y: 0.90, z: 1.16,
+      duration: 3.8,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut'
+    });
+    gsap.to(energySphere.rotation, {
+      y: Math.PI * 2,
+      x: 0.35,
+      duration: 18,
+      repeat: -1,
+      ease: 'none'
+    });
+
+    // Hạt năng lượng nhỏ chạy theo quỹ đạo elip quanh hộp.
+    const orbitalParticleCount = window.innerWidth <= 700 ? 70 : 120;
+    const orbitalGeo = new THREE.BufferGeometry();
+    const orbitalPos = new Float32Array(orbitalParticleCount * 3);
+    for (let i = 0; i < orbitalParticleCount; i++) {
+      const a = Math.random() * Math.PI * 2;
+      const r = 2.2 + Math.random() * 1.9;
+      orbitalPos[i * 3] = Math.cos(a) * r;
+      orbitalPos[i * 3 + 1] = (Math.random() - 0.5) * 0.75 + 0.45;
+      orbitalPos[i * 3 + 2] = Math.sin(a) * r * 0.78;
+    }
+    orbitalGeo.setAttribute('position', new THREE.BufferAttribute(orbitalPos, 3));
+    const orbitalMat = new THREE.PointsMaterial({
+      color: 0x8ef9ff,
+      size: 0.035,
+      map: particleTexture,
+      transparent: true,
+      opacity: 0.72,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    const orbitalParticles = new THREE.Points(orbitalGeo, orbitalMat);
+    mainGroup.add(orbitalParticles);
+    gsap.to(orbitalParticles.rotation, { y: Math.PI * 2, duration: 9.5, repeat: -1, ease: 'none' });
+    gsap.to(orbitalParticles.rotation, { x: 0.15, z: -0.18, duration: 4.5, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+    gsap.to(orbitalMat, { opacity: 1.0, duration: 1.7, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 0.35 });
+
     // 5. KHUNG ẢNH SPRITE
     const photoSprites = []; // Chỉ dùng để render, không dùng làm vùng tương tác.
     const raycaster = new THREE.Raycaster();
@@ -977,8 +1681,8 @@
       createRectangleTexture(wishesData[i].img, (texture) => {
         const mat = new THREE.SpriteMaterial({ map: texture, transparent: true });
         const sprite = new THREE.Sprite(mat);
-        // Khung ảnh chữ nhật đứng tỷ lệ 3:4, phóng nhẹ khoảng 6%.
-        sprite.scale.set(0.81, 1.08, 1);
+        // Khung ảnh chữ nhật đứng tỷ lệ 3:4, tăng kích thước khoảng 15% để nổi bật hơn.
+        sprite.scale.set(0.93, 1.24, 1);
 
         const posConfig = photoPositions[i];
         const mobile = isMobileLayout();
@@ -1186,9 +1890,22 @@
     });
 
     // 8. ANIMATION LOOP
+    let cosmicPointerX = 0;
+    let cosmicPointerY = 0;
+    window.addEventListener('pointermove', (e) => {
+      cosmicPointerX = (e.clientX / window.innerWidth - 0.5) * 2;
+      cosmicPointerY = (e.clientY / window.innerHeight - 0.5) * 2;
+    }, { passive: true });
+
     function animate() {
       requestAnimationFrame(animate);
       mainGroup.rotation.y += 0.0025;
+
+      // Parallax rất nhẹ cho trường sao 3D, khiến nền có cảm giác "trôi" theo người xem.
+      deepStars.position.x += (cosmicPointerX * 0.018 - deepStars.position.x) * 0.018;
+      deepStars.position.y += (-cosmicPointerY * 0.012 - deepStars.position.y) * 0.018;
+      brightStars.position.x += (cosmicPointerX * 0.035 - brightStars.position.x) * 0.018;
+      brightStars.position.y += (-cosmicPointerY * 0.024 - brightStars.position.y) * 0.018;
 
       const positions = floatingGeo.attributes.position.array;
       for (let i = 0; i < floatingHeartsCount; i++) {
@@ -1344,7 +2061,7 @@
 
     // Giảm chuyển động nếu hệ điều hành của người dùng yêu cầu.
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll('.landing-aurora, .landing-stars span').forEach(el => {
+      document.querySelectorAll('.landing-aurora, .landing-stars span, .space-nebula, .space-galaxy-cloud, .space-aurora-main, .space-aurora-main > span, .space-cosmic-glow, .space-vortex, .space-constellation, .space-stars, .space-dust').forEach(el => {
         el.style.animation = 'none';
       });
     }

@@ -904,16 +904,25 @@
 
     @media (max-width: 700px) {
       #gift-letter {
+        left: 50%;
+        top: 50%;
         width: min(410px, 92vw);
+        max-height: calc(100vh - 20px);
+        max-height: calc(100dvh - 20px);
       }
       #gift-letter.show {
-        transform: translate(-50%, -50%) scale(.92) rotate(-1deg);
+        transform: translate(-50%, -50%) scale(.88) rotate(0deg);
       }
       .letter-paper {
+        max-height: calc(100vh - 20px);
+        max-height: calc(100dvh - 20px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         padding: 20px 17px 18px;
       }
       .letter-gallery {
         gap: 6px;
+        height: 175px;
         margin-top: 13px;
       }
       .letter-paper p {
@@ -1696,23 +1705,13 @@
       };
     }
 
-    const photoPositions = [
-      { r: 2.9, angle: 0.12, y: 0.72 },
-      { r: 3.4, angle: 0.55, y: -0.08 },
-      { r: 4.0, angle: 0.98, y: 0.52 },
-      { r: 4.6, angle: 1.42, y: -0.22 },
-      { r: 5.1, angle: 1.86, y: 0.62 },
-      { r: 5.5, angle: 2.30, y: -0.06 },
-      { r: 5.8, angle: 2.74, y: 0.50 },
-      { r: 5.9, angle: 3.18, y: -0.20 },
-      { r: 5.7, angle: 3.62, y: 0.62 },
-      { r: 5.3, angle: 4.06, y: -0.06 },
-      { r: 4.9, angle: 4.50, y: 0.52 },
-      { r: 4.5, angle: 4.94, y: -0.22 },
-      { r: 4.1, angle: 5.38, y: 0.64 },
-      { r: 3.6, angle: 5.72, y: -0.05 },
-      { r: 3.1, angle: 6.08, y: 0.48 }
-    ];
+    // 15 khung ảnh được chia đều trên cùng một quỹ đạo tròn,
+    // để khoảng cách và tốc độ xoay quanh hộp quà nhìn đồng đều.
+    const photoPositions = Array.from({ length: 15 }, (_, i) => ({
+      r: 4.35,
+      angle: (i / 15) * Math.PI * 2,
+      y: 0.28
+    }));
 
     // Tổng cộng 15 khung hình; dùng các ảnh hiện có và lặp lại vài ảnh cuối
     // để không cần thay đổi cấu trúc dữ liệu lời chúc hiện tại.
@@ -1735,8 +1734,8 @@
         sprite.scale.set(mobile ? 1.20 : 1.05, mobile ? 1.60 : 1.40, 1);
 
         const posConfig = photoPositions[i];
-        const xCompression = mobile ? 0.48 : 1;
-        const radius = mobile ? Math.min(posConfig.r, 4.15) : posConfig.r;
+        const xCompression = mobile ? 0.86 : 1;
+        const radius = mobile ? Math.min(posConfig.r, 3.55) : posConfig.r;
         sprite.position.x = Math.cos(posConfig.angle) * radius * xCompression;
         sprite.position.z = Math.sin(posConfig.angle) * radius;
         sprite.position.y = mobile ? posConfig.y * 0.82 : posConfig.y;
@@ -1817,8 +1816,9 @@
       let y = (-giftScreenPos.y * 0.5 + 0.5) * window.innerHeight;
 
       if (window.innerWidth <= 700) {
+        // Luôn đưa lá thư vào chính giữa màn hình điện thoại.
         x = window.innerWidth * 0.50;
-        y = Math.max(120, window.innerHeight * 0.19);
+        y = window.innerHeight * 0.50;
       } else {
         x += 150;
         y -= 10;

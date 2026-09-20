@@ -47,12 +47,13 @@
     /* CỰC QUANG NỀN CHO MÀN HÌNH BẮT ĐẦU */
     .landing-aurora {
       position: absolute;
-      inset: -20%;
+      inset: -22%;
       z-index: 0;
       pointer-events: none;
-      filter: blur(34px) saturate(125%);
-      opacity: 0.86;
-      transform: rotate(-7deg) scale(1.1);
+      filter: blur(28px) saturate(145%);
+      opacity: 0.94;
+      transform: rotate(-7deg) scale(1.12);
+      will-change: transform, opacity;
     }
     .landing-aurora::before,
     .landing-aurora::after,
@@ -62,45 +63,60 @@
       inset: 0;
       background-repeat: no-repeat;
       mix-blend-mode: screen;
+      will-change: transform, opacity;
     }
     .landing-aurora::before {
       background:
-        radial-gradient(42% 18% at 38% 32%, rgba(0, 255, 217, .20) 0%, rgba(0, 255, 217, .10) 28%, rgba(0, 255, 217, 0) 72%),
-        radial-gradient(36% 20% at 58% 39%, rgba(100, 255, 148, .18) 0%, rgba(100, 255, 148, .08) 35%, rgba(100, 255, 148, 0) 76%),
-        radial-gradient(44% 17% at 63% 30%, rgba(183, 78, 255, .24) 0%, rgba(183, 78, 255, .10) 35%, rgba(183, 78, 255, 0) 74%);
-      transform: translate3d(-3%, 1%, 0) skewY(-5deg);
-      animation: auroraDriftA 11s ease-in-out infinite alternate;
+        radial-gradient(44% 20% at 30% 34%, rgba(0, 255, 221, .28) 0%, rgba(0, 255, 221, .13) 30%, rgba(0, 255, 221, 0) 73%),
+        radial-gradient(38% 21% at 51% 37%, rgba(82, 255, 160, .24) 0%, rgba(82, 255, 160, .10) 34%, rgba(82, 255, 160, 0) 76%),
+        radial-gradient(46% 19% at 66% 29%, rgba(188, 79, 255, .30) 0%, rgba(188, 79, 255, .12) 34%, rgba(188, 79, 255, 0) 75%);
+      transform: translate3d(-5%, 2%, 0) skewY(-6deg) scale(1.02);
+      animation: auroraDriftA 8.5s ease-in-out infinite alternate;
     }
     .landing-aurora::after {
       background:
-        radial-gradient(38% 17% at 48% 46%, rgba(255, 0, 170, .16) 0%, rgba(255, 0, 170, .06) 34%, rgba(255, 0, 170, 0) 76%),
-        radial-gradient(30% 13% at 74% 38%, rgba(0, 183, 255, .15) 0%, rgba(0, 183, 255, .05) 34%, rgba(0, 183, 255, 0) 74%);
-      transform: translate3d(4%, -2%, 0) skewY(7deg);
-      animation: auroraDriftB 15s ease-in-out infinite alternate;
+        radial-gradient(42% 18% at 43% 49%, rgba(255, 0, 170, .24) 0%, rgba(255, 0, 170, .08) 34%, rgba(255, 0, 170, 0) 76%),
+        radial-gradient(34% 16% at 76% 35%, rgba(0, 198, 255, .22) 0%, rgba(0, 198, 255, .08) 34%, rgba(0, 198, 255, 0) 74%),
+        radial-gradient(28% 13% at 18% 58%, rgba(70, 255, 205, .13) 0%, rgba(70, 255, 205, 0) 75%);
+      transform: translate3d(6%, -3%, 0) skewY(8deg) scale(1.04);
+      animation: auroraDriftB 10.5s ease-in-out infinite alternate;
     }
     .landing-aurora .aurora-ribbon {
-      inset: 7% -5% 18% -5%;
+      inset: 2% -8% 14% -8%;
       border-radius: 50%;
       background:
-        linear-gradient(115deg, rgba(0, 255, 221, 0) 16%, rgba(0, 255, 221, .11) 33%, rgba(140, 92, 255, .15) 47%, rgba(255, 0, 170, .10) 58%, rgba(0, 255, 221, 0) 76%);
-      filter: blur(16px);
-      animation: auroraWave 13s ease-in-out infinite;
+        linear-gradient(118deg,
+          rgba(0, 255, 221, 0) 10%,
+          rgba(0, 255, 221, .16) 27%,
+          rgba(116, 124, 255, .20) 42%,
+          rgba(255, 0, 170, .16) 55%,
+          rgba(0, 183, 255, .14) 67%,
+          rgba(0, 255, 221, 0) 84%);
+      filter: blur(13px);
+      animation: auroraWave 9.5s ease-in-out infinite;
     }
 
     @keyframes auroraDriftA {
-      0% { transform: translate3d(-4%, 2%, 0) skewY(-5deg) scale(1); opacity: .78; }
-      100% { transform: translate3d(5%, -4%, 0) skewY(-2deg) scale(1.08); opacity: 1; }
+      0% { transform: translate3d(-8%, 4%, 0) skewY(-7deg) scale(1.00); opacity: .62; }
+      35% { transform: translate3d(-1%, -1%, 0) skewY(-3deg) scale(1.05); opacity: .92; }
+      70% { transform: translate3d(6%, -5%, 0) skewY(1deg) scale(1.10); opacity: 1; }
+      100% { transform: translate3d(11%, 1%, 0) skewY(-2deg) scale(1.06); opacity: .82; }
     }
     @keyframes auroraDriftB {
-      0% { transform: translate3d(5%, -3%, 0) skewY(7deg) scale(1.02); opacity: .62; }
-      100% { transform: translate3d(-5%, 5%, 0) skewY(3deg) scale(1.10); opacity: .9; }
+      0% { transform: translate3d(8%, -3%, 0) skewY(8deg) scale(1.02); opacity: .55; }
+      40% { transform: translate3d(1%, 4%, 0) skewY(3deg) scale(1.09); opacity: .86; }
+      75% { transform: translate3d(-7%, 1%, 0) skewY(-2deg) scale(1.13); opacity: 1; }
+      100% { transform: translate3d(-12%, 6%, 0) skewY(4deg) scale(1.08); opacity: .70; }
     }
     @keyframes auroraWave {
-      0%, 100% { transform: translate3d(-8%, 0, 0) rotate(-3deg) scaleX(1); }
-      50% { transform: translate3d(8%, -3%, 0) rotate(4deg) scaleX(1.12); }
+      0% { transform: translate3d(-13%, 1%, 0) rotate(-5deg) scaleX(.94); opacity: .55; }
+      30% { transform: translate3d(-3%, -2%, 0) rotate(-1deg) scaleX(1.04); opacity: .90; }
+      55% { transform: translate3d(9%, -5%, 0) rotate(4deg) scaleX(1.16); opacity: 1; }
+      80% { transform: translate3d(14%, 1%, 0) rotate(1deg) scaleX(1.08); opacity: .82; }
+      100% { transform: translate3d(-3%, 4%, 0) rotate(-4deg) scaleX(.98); opacity: .60; }
     }
 
-    /* SAO BĂNG NHẸ TRÊN MÀN HÌNH BẮT ĐẦU */
+    /* SAO BĂNG NHIỀU HƠN MỘT CHÚT TRÊN MÀN HÌNH BẮT ĐẦU */
     .landing-stars {
       position: absolute;
       inset: 0;
@@ -132,18 +148,23 @@
       background: #fff;
       box-shadow: 0 0 7px #fff, 0 0 16px rgba(0,220,255,.9);
     }
-    .landing-stars span:nth-child(1) { top: 7%; left: 4%; animation-delay: .6s; animation-duration: 6.8s; }
-    .landing-stars span:nth-child(2) { top: 18%; left: 58%; animation-delay: 2.8s; animation-duration: 7.4s; transform: rotate(31deg) scale(.72); }
-    .landing-stars span:nth-child(3) { top: 31%; left: 87%; animation-delay: 1.8s; animation-duration: 6.2s; transform: rotate(34deg) scale(.58); }
-    .landing-stars span:nth-child(4) { top: 58%; left: 3%; animation-delay: 4.1s; animation-duration: 7.7s; transform: rotate(29deg) scale(.84); }
-    .landing-stars span:nth-child(5) { top: 72%; left: 72%; animation-delay: 3.4s; animation-duration: 6.9s; transform: rotate(33deg) scale(.66); }
-    .landing-stars span:nth-child(6) { top: 87%; left: 42%; animation-delay: 5.1s; animation-duration: 8.2s; transform: rotate(30deg) scale(.55); }
+    .landing-stars span:nth-child(1) { top: 7%; left: 4%; animation-delay: .6s; animation-duration: 6.4s; }
+    .landing-stars span:nth-child(2) { top: 18%; left: 58%; animation-delay: 2.0s; animation-duration: 6.9s; transform: rotate(31deg) scale(.72); }
+    .landing-stars span:nth-child(3) { top: 31%; left: 87%; animation-delay: 1.3s; animation-duration: 5.9s; transform: rotate(34deg) scale(.58); }
+    .landing-stars span:nth-child(4) { top: 58%; left: 3%; animation-delay: 3.3s; animation-duration: 7.2s; transform: rotate(29deg) scale(.84); }
+    .landing-stars span:nth-child(5) { top: 72%; left: 72%; animation-delay: 2.6s; animation-duration: 6.2s; transform: rotate(33deg) scale(.66); }
+    .landing-stars span:nth-child(6) { top: 87%; left: 42%; animation-delay: 4.2s; animation-duration: 7.6s; transform: rotate(30deg) scale(.55); }
+    .landing-stars span:nth-child(7) { top: 13%; left: 28%; animation-delay: 3.8s; animation-duration: 6.6s; transform: rotate(30deg) scale(.50); }
+    .landing-stars span:nth-child(8) { top: 43%; left: 66%; animation-delay: 4.9s; animation-duration: 7.0s; transform: rotate(35deg) scale(.63); }
+    .landing-stars span:nth-child(9) { top: 64%; left: 20%; animation-delay: 1.9s; animation-duration: 6.1s; transform: rotate(28deg) scale(.46); }
+    .landing-stars span:nth-child(10) { top: 82%; left: 82%; animation-delay: 5.3s; animation-duration: 7.8s; transform: rotate(32deg) scale(.56); }
 
     @keyframes landingMeteor {
-      0% { opacity: 0; transform: translate3d(-10px, -10px, 0) rotate(32deg) scale(.78); }
-      7% { opacity: .95; }
-      23% { opacity: 0; transform: translate3d(420px, 250px, 0) rotate(32deg) scale(1); }
-      100% { opacity: 0; transform: translate3d(420px, 250px, 0) rotate(32deg) scale(1); }
+      0% { opacity: 0; transform: translate3d(-15px, -12px, 0) rotate(32deg) scale(.76); }
+      6% { opacity: .95; }
+      18% { opacity: .35; }
+      25% { opacity: 0; transform: translate3d(460px, 275px, 0) rotate(32deg) scale(1.02); }
+      100% { opacity: 0; transform: translate3d(460px, 275px, 0) rotate(32deg) scale(1.02); }
     }
 
     /* Card luôn nằm trên các hiệu ứng nền */
@@ -158,6 +179,7 @@
       text-align: center;
       box-shadow: 0 0 50px rgba(230, 0, 90, 0.4);
       max-width: 340px;
+      touch-action: manipulation;
       width: 85%;
     }
     .card h1 {
@@ -416,7 +438,8 @@
       <span class="aurora-ribbon"></span>
     </div>
     <div class="landing-stars" aria-hidden="true">
-      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
     </div>
     <div class="card">
       <h1>HAPPY BIRTHDAY</h1>
@@ -474,52 +497,52 @@
   <script>
     const wishesData = [
       {
-        img: "https://i.postimg.cc/J4y3gHs7/1.jpg",
+        img: "Ảnh11.jpg",
         title: "Lời Chúc Rực Rỡ ✨",
         text: "Chúc cậu một tuổi mới thật rực rỡ, luôn giữ nụ cười tươi rạng rỡ và gặt hái thêm nhiều thành công mới!"
       },
       {
-        img: "https://i.postimg.cc/8zMRk8BC/2.jpg",
+        img: "Ảnh1.jpg",
         title: "Ngọt Ngào & Hạnh Phúc 💖",
         text: "Mong rằng mỗi ngày trong tuổi mới của cậu đều ngập tràn niềm vui, sự ngọt ngào và những ký ức tuyệt vời."
       },
       {
-        img: "https://i.postimg.cc/fbsxJHB7/3.jpg",
+        img: "Ảnh2.jpg",
         title: "Tỏa Sáng Tinh Tú 🌟",
         text: "Cậu luôn là ngôi sao tỏa sáng nhất. Hãy luôn tự tin, mạnh mẽ bước tiếp và theo đuổi ước mơ của mình nhé!"
       },
       {
-        img: "https://i.postimg.cc/vmv59WKd/4.jpg",
+        img: "Ảnh3.jpg",
         title: "Tuổi Mới Bình An 🎂",
         text: "Happy Birthday! Chúc cậu có một ngày sinh nhật thật ấm áp bên người thân yêu, luôn xinh đẹp và may mắn!"
       },
       {
-        img: "https://i.postimg.cc/J4y3gHs7/1.jpg",
+        img: "Ảnh4.jpg",
         title: "Kỷ Niệm Đáng Nhớ 💫",
         text: "Mỗi khoảnh khắc đẹp đều xứng đáng được lưu giữ thật lâu trong tuổi mới này."
       },
       {
-        img: "https://i.postimg.cc/8zMRk8BC/2.jpg",
+        img: "Ảnh5.jpg",
         title: "Niềm Vui Mỗi Ngày 🌸",
         text: "Chúc cậu luôn có thật nhiều niềm vui nhỏ bé nhưng đủ làm cả ngày trở nên đặc biệt."
       },
       {
-        img: "https://i.postimg.cc/fbsxJHB7/3.jpg",
+        img: "Ảnh6.jpg",
         title: "Ước Mơ Tỏa Sáng 🌙",
         text: "Mong mọi ước mơ của cậu đều dần trở thành những điều thật đẹp trong tương lai."
       },
       {
-        img: "https://i.postimg.cc/vmv59WKd/4.jpg",
+        img: "Ảnh7.jpg",
         title: "Bình Yên & May Mắn 🍀",
         text: "Tuổi mới thật bình yên, gặp nhiều may mắn và luôn có những người thương cậu ở bên."
       },
       {
-        img: "https://i.postimg.cc/J4y3gHs7/1.jpg",
+        img: "Ảnh8.jpg",
         title: "Một Tuổi Mới Tuyệt Vời 🎉",
         text: "Chúc những ngày phía trước đều có thêm thật nhiều lý do để mỉm cười."
       },
       {
-        img: "https://i.postimg.cc/8zMRk8BC/2.jpg",
+        img: "Ảnh9.jpg",
         title: "Happy Birthday! ❤️",
         text: "Chúc cậu có một sinh nhật thật đáng nhớ và một hành trình tuổi mới thật rực rỡ!"
       }
@@ -1002,35 +1025,52 @@
       giftLetter.style.top = `${y}px`;
     }
 
-    window.addEventListener('pointermove', (e) => {
-      if (e.target.closest('#control-panel') || e.target.closest('#gift-letter')) return;
-      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-
+    function updatePointerRaycast(clientX, clientY) {
+      mouse.x = (clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(clientY / window.innerHeight) * 2 + 1;
       raycaster.setFromCamera(mouse, camera);
-      const giftIntersects = raycaster.intersectObjects(giftHoverTargets, true);
-      const giftActive = giftIntersects.length > 0;
+      return raycaster.intersectObjects(giftHoverTargets, true);
+    }
+
+    // Máy tính: lá thư chỉ xuất hiện khi con trỏ thật sự đang nằm trên hộp quà.
+    window.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      if (e.target.closest('#control-panel') || e.target.closest('#gift-letter')) return;
+
+      const giftActive = updatePointerRaycast(e.clientX, e.clientY).length > 0;
       setGiftOpen(giftActive);
       setGiftLetterVisible(giftActive);
     });
 
-    window.addEventListener('pointerleave', () => { setGiftOpen(false); setGiftLetterVisible(false); });
+    window.addEventListener('pointerleave', (e) => {
+      if (e.pointerType && e.pointerType !== 'mouse') return;
+      setGiftOpen(false);
+      setGiftLetterVisible(false);
+    });
 
+    // Điện thoại/tablet không có hover vật lý: chạm đúng vào hộp được xem là "hover".
+    // Chạm ra ngoài hộp sẽ đóng thư, nên thư không tự mở ở các vùng trống.
     window.addEventListener('pointerdown', (e) => {
-      if(e.target.closest('#control-panel')) return; // Tránh bấm nhầm bảng điều khiển
-      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      if (e.target.closest('#control-panel')) return;
 
-      raycaster.setFromCamera(mouse, camera);
-      const giftIntersects = raycaster.intersectObjects(giftHoverTargets, true);
+      const giftIntersects = updatePointerRaycast(e.clientX, e.clientY);
+      if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+        if (giftIntersects.length > 0) {
+          setGiftOpen(true);
+          setGiftLetterVisible(true);
+          return;
+        }
 
-      // Trên màn hình cảm ứng không có hover, nên chạm vào hộp sẽ mở hiệu ứng tương ứng.
-      if (giftIntersects.length > 0 && e.pointerType === 'touch') {
-        setGiftOpen(true);
-        setGiftLetterVisible(true);
+        setGiftOpen(false);
+        setGiftLetterVisible(false);
+        const intersects = raycaster.intersectObjects(photoSprites);
+        if (intersects.length > 0) {
+          openWishModal(intersects[0].object.userData.index);
+        }
         return;
       }
 
+      // Fallback cho thiết bị gửi pointerdown kiểu khác.
       const intersects = raycaster.intersectObjects(photoSprites);
       if (intersects.length > 0) {
         openWishModal(intersects[0].object.userData.index);
@@ -1164,7 +1204,7 @@
     }
 
     function makeMeteor(force = false) {
-      if (!force && meteors.length >= 18) return;
+      if (!force && meteors.length >= (window.innerWidth <= 700 ? 20 : 24)) return;
 
       const w = window.innerWidth;
       const h = window.innerHeight;
@@ -1245,10 +1285,10 @@
       meteorCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
       // Nhịp xuất hiện ngẫu nhiên để sao băng không chạy liên tục.
-      if (meteorSpawnTimer > 0.12 + Math.random() * 0.30) {
+      if (meteorSpawnTimer > 0.10 + Math.random() * 0.24) {
         makeMeteor();
-        if (Math.random() < 0.55) makeMeteor();
-        if (Math.random() < 0.28) makeMeteor();
+        if (Math.random() < 0.62) makeMeteor();
+        if (Math.random() < 0.34) makeMeteor();
         meteorSpawnTimer = 0;
       }
 
@@ -1261,8 +1301,8 @@
 
     resizeMeteorCanvas();
     // Cho nhiều sao băng xuất hiện sớm sau khi trang mở để bầu trời có cảm giác sống động.
-    for (let i = 0; i < 10; i++) {
-      setTimeout(() => makeMeteor(true), 180 + i * 170);
+    for (let i = 0; i < 12; i++) {
+      setTimeout(() => makeMeteor(true), 160 + i * 150);
     }
     requestAnimationFrame(animateMeteors);
 

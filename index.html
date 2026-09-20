@@ -1230,6 +1230,13 @@
     const mainGroup = new THREE.Group();
     scene.add(mainGroup);
 
+    // Trên điện thoại, hạ toàn bộ cụm hộp quà + khung ảnh xuống
+    // để cụm nội dung nằm ở vùng giữa màn hình thay vì dồn lên phía trên.
+    function updateMobileGroupPosition() {
+      mainGroup.position.y = window.innerWidth <= 700 ? -0.78 : 0;
+    }
+    updateMobileGroupPosition();
+
     // 2. TEXTURE HẠT NEON
     function createGlowTexture() {
       const canvas = document.createElement('canvas');
@@ -1765,11 +1772,11 @@
         const sprite = new THREE.Sprite(mat);
         // Khung ảnh lớn hơn trên mobile để hình không bị quá nhỏ.
         const mobile = isMobileLayout();
-        sprite.scale.set(mobile ? 1.48 : 1.05, mobile ? 1.98 : 1.40, 1);
+        sprite.scale.set(mobile ? 1.20 : 1.05, mobile ? 1.60 : 1.40, 1);
 
         const posConfig = photoPositions[i];
-        const xCompression = mobile ? 0.82 : 1;
-        const radius = mobile ? Math.min(posConfig.r, 3.42) : posConfig.r;
+        const xCompression = mobile ? 0.86 : 1;
+        const radius = mobile ? Math.min(posConfig.r, 3.55) : posConfig.r;
         sprite.position.x = Math.cos(posConfig.angle) * radius * xCompression;
         sprite.position.z = Math.sin(posConfig.angle) * radius;
         sprite.position.y = mobile ? posConfig.y * 0.82 : posConfig.y;
@@ -2164,29 +2171,21 @@
     function updateResponsiveCamera() {
       const mobile = isMobileLayout();
       if (mobile) {
-        camera.position.set(0, 2.35, 10.2);
-        camera.fov = 64;
+        camera.position.set(0, 2.25, 8.2);
+        camera.fov = 60;
       } else {
         camera.position.set(0, 3.5, 7.5);
         camera.fov = 60;
       }
+      updateMobileGroupPosition();
       camera.updateProjectionMatrix();
     }
 
-    function updateResponsivePhotoScale() {
-      const mobile = isMobileLayout();
-      photoSprites.forEach((sprite) => {
-        sprite.scale.set(mobile ? 1.48 : 1.05, mobile ? 1.98 : 1.40, 1);
-      });
-    }
-
     updateResponsiveCamera();
-    updateResponsivePhotoScale();
 
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       updateResponsiveCamera();
-      updateResponsivePhotoScale();
       renderer.setSize(window.innerWidth, window.innerHeight);
       resizeMeteorCanvas();
     });

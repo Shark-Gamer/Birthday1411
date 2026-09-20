@@ -173,7 +173,7 @@
       z-index: 3;
       background: rgba(25, 0, 30, 0.65);
       border: 1px solid rgba(255, 0, 102, 0.5);
-      backdrop-filter: blur(15px);
+      backdrop-filter: blur(12px);
       padding: 40px 30px;
       border-radius: 24px;
       text-align: center;
@@ -281,7 +281,7 @@
 
     .space-nebula {
       z-index: 0;
-      filter: blur(34px) saturate(150%);
+      filter: blur(22px) saturate(135%);
       opacity: .75;
       background:
         radial-gradient(42% 24% at 18% 34%, rgba(0, 205, 255, .17), rgba(0, 205, 255, 0) 74%),
@@ -294,7 +294,7 @@
     .space-aurora-main {
       z-index: 1;
       inset: -42% -26%;
-      filter: blur(28px) saturate(165%);
+      filter: blur(20px) saturate(145%);
       opacity: .82;
       transform: rotate(-10deg) scale(1.06);
     }
@@ -318,7 +318,7 @@
       height: 58%;
       border-radius: 50%;
       mix-blend-mode: screen;
-      filter: blur(17px);
+      filter: blur(12px);
       opacity: .55;
       will-change: transform, opacity;
     }
@@ -406,7 +406,7 @@
         rgba(128,230,255,.13) 22%,
         rgba(166,93,255,.13) 44%,
         rgba(255,0,161,0) 78%);
-      filter: blur(18px);
+      filter: blur(14px);
       animation: mainAuroraD 11s ease-in-out infinite alternate;
     }
 
@@ -422,7 +422,7 @@
         rgba(183,83,255,.17) 57%,
         rgba(255,0,168,.10) 70%,
         rgba(0,255,228,0) 94%);
-      filter: blur(15px);
+      filter: blur(12px);
       transform: rotate(-6deg) skewX(-18deg);
       animation: mainAuroraE 13s ease-in-out infinite alternate;
     }
@@ -439,7 +439,7 @@
         rgba(124,113,255,.14) 60%,
         rgba(255,0,174,.07) 77%,
         rgba(0,201,255,0) 95%);
-      filter: blur(17px);
+      filter: blur(12px);
       transform: rotate(8deg) skewX(14deg);
       animation: mainAuroraF 15s ease-in-out infinite alternate-reverse;
     }
@@ -456,39 +456,9 @@
         rgba(255,0,162,.10) 61%,
         rgba(0,255,221,.05) 80%,
         rgba(0,255,221,0) 96%);
-      filter: blur(20px);
+      filter: blur(15px);
       transform: rotate(-2deg);
       animation: mainAuroraG 21s ease-in-out infinite alternate;
-    }
-
-    /* Mây thiên hà xoáy rất chậm phía sau khung 3D. */
-    .space-galaxy-cloud,
-    .space-cosmic-glow,
-    .space-vortex,
-    .space-constellation {
-      position: absolute;
-      pointer-events: none;
-      will-change: transform, opacity;
-    }
-
-    .space-galaxy-cloud {
-      z-index: 0;
-      inset: -35%;
-      opacity: .43;
-      filter: blur(30px) saturate(160%);
-      background:
-        conic-gradient(from 10deg at 50% 50%,
-          rgba(0,255,228,0) 0deg,
-          rgba(0,255,228,.06) 32deg,
-          rgba(103,116,255,.15) 68deg,
-          rgba(224,69,255,.11) 108deg,
-          rgba(0,205,255,.07) 150deg,
-          rgba(255,0,163,.10) 204deg,
-          rgba(0,255,228,0) 252deg,
-          rgba(122,89,255,.08) 306deg,
-          rgba(0,255,228,0) 360deg);
-      mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0 33%, rgba(0,0,0,.8) 48%, transparent 78%);
-      animation: galaxyCloudSpin 42s linear infinite;
     }
 
     .space-cosmic-glow {
@@ -501,38 +471,6 @@
         radial-gradient(ellipse at 50% 57%, rgba(0,232,255,.09) 0%, rgba(0,232,255,0) 42%);
       filter: blur(12px);
       animation: cosmicGlow 9s ease-in-out infinite alternate;
-    }
-
-    .space-vortex {
-      z-index: 2;
-      width: min(74vmin, 980px);
-      height: min(23vmin, 310px);
-      left: 50%;
-      top: 55%;
-      border: 1px solid rgba(99,224,255,.09);
-      border-radius: 50%;
-      transform: translate(-50%, -50%) rotate(-8deg) scale(.92);
-      box-shadow:
-        0 0 16px rgba(0,225,255,.08),
-        0 0 44px rgba(118,75,255,.05),
-        inset 0 0 28px rgba(255,0,170,.045);
-      opacity: .72;
-      animation: vortexFloat 10s ease-in-out infinite alternate;
-    }
-
-    .space-vortex::before,
-    .space-vortex::after {
-      content: '';
-      position: absolute;
-      inset: 8% 11%;
-      border-radius: 50%;
-      border: 1px solid rgba(212,116,255,.08);
-      box-shadow: 0 0 20px rgba(171,92,255,.06);
-    }
-    .space-vortex::after {
-      inset: 21% 22%;
-      border-color: rgba(0,240,225,.08);
-      box-shadow: 0 0 18px rgba(0,240,225,.06);
     }
 
     .space-constellation {
@@ -653,19 +591,9 @@
       0% { transform: translate3d(-10%, 0, 0) rotate(-5deg) scaleX(.88); opacity: .20; }
       100% { transform: translate3d(11%, -6%, 0) rotate(4deg) scaleX(1.08); opacity: .40; }
     }
-    @keyframes galaxyCloudSpin {
-      0% { transform: rotate(0deg) scale(1); opacity: .30; }
-      50% { transform: rotate(180deg) scale(1.05); opacity: .48; }
-      100% { transform: rotate(360deg) scale(1); opacity: .34; }
-    }
     @keyframes cosmicGlow {
       0% { transform: scale(.95) translate3d(-1%, 1%, 0); opacity: .32; }
       100% { transform: scale(1.06) translate3d(1%, -1%, 0); opacity: .68; }
-    }
-    @keyframes vortexFloat {
-      0% { transform: translate(-50%, -50%) rotate(-10deg) scale(.91); opacity: .45; }
-      50% { transform: translate(-50%, -48%) rotate(1deg) scale(1); opacity: .78; }
-      100% { transform: translate(-50%, -52%) rotate(8deg) scale(.96); opacity: .52; }
     }
     @keyframes constellationDrift {
       0% { transform: translate3d(-10px, 6px, 0) scale(1); opacity: .20; }
@@ -708,6 +636,90 @@
       pointer-events: none;
       display: block;
       mix-blend-mode: screen;
+    }
+
+
+    /* GỢI Ý MỞ HỘP QUÀ – đám mây vũ trụ nhẹ, luôn chỉ vào hộp quà */
+    #gift-prompt {
+      position: fixed;
+      left: 50%;
+      top: 0;
+      z-index: 8;
+      width: max-content;
+      max-width: min(300px, 78vw);
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(-50%, -150%);
+      transition: opacity .45s ease, visibility .45s ease;
+      pointer-events: none;
+      will-change: left, top, opacity;
+    }
+
+    #landing-screen.hidden ~ #gift-prompt {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .prompt-cloud {
+      position: relative;
+      min-width: 180px;
+      padding: 12px 22px 13px;
+      border: 1px solid rgba(142, 228, 255, .72);
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 18% 28%, rgba(0, 244, 255, .18), transparent 22%),
+        radial-gradient(circle at 82% 72%, rgba(255, 0, 187, .18), transparent 25%),
+        linear-gradient(135deg, rgba(9, 17, 45, .90), rgba(45, 8, 66, .88));
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.08) inset,
+        0 0 18px rgba(65, 208, 255, .28),
+        0 0 34px rgba(220, 0, 255, .16);
+      backdrop-filter: blur(6px);
+      color: #fff;
+      font-size: clamp(.95rem, 2.3vw, 1.08rem);
+      font-weight: 800;
+      letter-spacing: .02em;
+      text-align: center;
+      text-shadow: 0 0 9px rgba(94, 224, 255, .65), 0 0 16px rgba(255, 0, 181, .34);
+      animation: giftPromptFloat 2.8s ease-in-out infinite;
+    }
+
+    .prompt-cloud::before,
+    .prompt-cloud::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .prompt-cloud::before {
+      width: 5px;
+      height: 5px;
+      left: 14px;
+      top: 9px;
+      background: #9bf6ff;
+      box-shadow: 0 0 7px #9bf6ff, 92px 23px 0 1px rgba(255,255,255,.95), 138px -7px 0 1px rgba(255,112,213,.95);
+    }
+
+    .prompt-cloud::after {
+      display: none;
+    }
+
+
+    @keyframes giftPromptFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-5px) scale(1.015); }
+    }
+
+    @media (max-width: 700px) {
+      #gift-prompt {
+        max-width: 86vw;
+      }
+      .prompt-cloud {
+        min-width: 200px;
+        padding: 11px 20px 12px;
+        font-size: 1rem;
+      }
     }
 
 
@@ -1055,7 +1067,6 @@
 
   <div id="space-effects" aria-hidden="true">
     <div class="space-nebula"></div>
-    <div class="space-galaxy-cloud"></div>
     <div class="space-aurora-main">
       <span class="aurora-band-a"></span>
       <span class="aurora-band-b"></span>
@@ -1066,7 +1077,6 @@
       <span class="aurora-band-g"></span>
     </div>
     <div class="space-cosmic-glow"></div>
-    <div class="space-vortex"></div>
     <div class="space-constellation"></div>
     <div class="space-stars"></div>
     <div class="space-dust"></div>
@@ -1074,6 +1084,12 @@
 
   <div id="canvas-container"></div>
   <canvas id="shooting-star-canvas" aria-hidden="true"></canvas>
+
+
+  <!-- GỢI Ý MỞ HỘP QUÀ -->
+  <div id="gift-prompt" aria-hidden="true">
+    <div class="prompt-cloud">Mở hộp quà đi ✨</div>
+  </div>
 
   <script>
     const wishesData = [
@@ -1160,14 +1176,13 @@
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.set(0, 3.5, 7.5);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, powerPreference: 'high-performance' });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
     container.appendChild(renderer.domElement);
 
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
+    controls.enableDamping = false;
 
     const mainGroup = new THREE.Group();
     scene.add(mainGroup);
@@ -1429,7 +1444,7 @@
     }
 
     // 4. DẢI NGÂN HÀ 3D
-    const galaxyParams = { count: 30000, radius: 10, branches: 3, spin: 1.4 };
+    const galaxyParams = { count: 12000, radius: 10, branches: 3, spin: 1.4 };
     const galaxyGeo = new THREE.BufferGeometry();
     const galaxyPos = new Float32Array(galaxyParams.count * 3);
     const galaxyColors = new Float32Array(galaxyParams.count * 3);
@@ -1464,7 +1479,7 @@
     mainGroup.add(galaxyPoints);
 
     // Bụi sao lấp lánh sâu trong không gian, tạo thêm chiều sâu cho cảnh.
-    const cosmicDustCount = 1700;
+    const cosmicDustCount = 800;
     const cosmicDustGeo = new THREE.BufferGeometry();
     const cosmicDustPos = new Float32Array(cosmicDustCount * 3);
     for (let i = 0; i < cosmicDustCount; i++) {
@@ -1487,49 +1502,6 @@
     });
     const cosmicDust = new THREE.Points(cosmicDustGeo, cosmicDustMat);
     mainGroup.add(cosmicDust);
-
-    // Hai quỹ đạo phát sáng rất nhẹ bao quanh hộp quà.
-    const orbitMatA = new THREE.MeshBasicMaterial({
-      color: 0x6cefff,
-      transparent: true,
-      opacity: 0.26,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false
-    });
-    const orbitMatB = new THREE.MeshBasicMaterial({
-      color: 0xe36dff,
-      transparent: true,
-      opacity: 0.20,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false
-    });
-    const orbitA = new THREE.Mesh(new THREE.TorusGeometry(3.05, 0.012, 8, 160), orbitMatA);
-    const orbitB = new THREE.Mesh(new THREE.TorusGeometry(3.55, 0.010, 8, 160), orbitMatB);
-    orbitA.rotation.set(Math.PI * 0.48, 0.10, 0.12);
-    orbitB.rotation.set(Math.PI * 0.62, -0.18, -0.08);
-    orbitA.position.y = 0.30;
-    orbitB.position.y = 0.25;
-    mainGroup.add(orbitA, orbitB);
-
-    gsap.to(orbitA.rotation, {
-      z: orbitA.rotation.z + Math.PI * 2,
-      duration: 18,
-      repeat: -1,
-      ease: 'none'
-    });
-    gsap.to(orbitB.rotation, {
-      x: orbitB.rotation.x - Math.PI * 2,
-      duration: 24,
-      repeat: -1,
-      ease: 'none'
-    });
-    gsap.to(cosmicDust.rotation, {
-      y: Math.PI * 2,
-      x: 0.18,
-      duration: 70,
-      repeat: -1,
-      ease: 'none'
-    });
     gsap.to(cosmicDustMat, {
       opacity: 0.62,
       duration: 3.5,
@@ -1539,7 +1511,7 @@
     });
 
     // Cụm sao sâu 3D: nhiều lớp khoảng cách để không gian có chiều sâu hơn.
-    const deepStarCount = window.innerWidth <= 700 ? 900 : 1500;
+    const deepStarCount = window.innerWidth <= 700 ? 680 : 980;
     const deepStarGeo = new THREE.BufferGeometry();
     const deepStarPos = new Float32Array(deepStarCount * 3);
     const deepStarColors = new Float32Array(deepStarCount * 3);
@@ -1584,7 +1556,7 @@
     const deepStars = new THREE.Points(deepStarGeo, deepStarMat);
     scene.add(deepStars);
 
-    const brightStarCount = window.innerWidth <= 700 ? 70 : 130;
+    const brightStarCount = window.innerWidth <= 700 ? 55 : 100;
     const brightStarGeo = new THREE.BufferGeometry();
     const brightStarPos = new Float32Array(brightStarCount * 3);
     for (let i = 0; i < brightStarCount; i++) {
@@ -1629,35 +1601,7 @@
       yoyo: true,
       ease: 'sine.inOut'
     });
-
-    // Vòng năng lượng 3D quanh hộp: chuyển động lệch pha để tạo chiều sâu.
-    const energyRingA = new THREE.Mesh(
-      new THREE.TorusGeometry(2.55, 0.018, 8, 180),
-      new THREE.MeshBasicMaterial({ color: 0x55f6ff, transparent: true, opacity: 0.22, blending: THREE.AdditiveBlending, depthWrite: false })
-    );
-    const energyRingB = new THREE.Mesh(
-      new THREE.TorusGeometry(2.95, 0.014, 8, 180),
-      new THREE.MeshBasicMaterial({ color: 0xf15cff, transparent: true, opacity: 0.17, blending: THREE.AdditiveBlending, depthWrite: false })
-    );
-    const energyRingC = new THREE.Mesh(
-      new THREE.TorusGeometry(4.10, 0.010, 8, 200),
-      new THREE.MeshBasicMaterial({ color: 0x9b7aff, transparent: true, opacity: 0.11, blending: THREE.AdditiveBlending, depthWrite: false })
-    );
-    energyRingA.rotation.set(Math.PI * 0.44, 0.18, 0.04);
-    energyRingB.rotation.set(Math.PI * 0.62, -0.25, 0.12);
-    energyRingC.rotation.set(Math.PI * 0.52, 0.04, -0.22);
-    energyRingA.position.y = 0.55;
-    energyRingB.position.y = 0.48;
-    energyRingC.position.y = 0.32;
-    mainGroup.add(energyRingA, energyRingB, energyRingC);
-
-    gsap.to(energyRingA.rotation, { y: energyRingA.rotation.y + Math.PI * 2, duration: 11, repeat: -1, ease: 'none' });
-    gsap.to(energyRingB.rotation, { x: energyRingB.rotation.x - Math.PI * 2, duration: 16, repeat: -1, ease: 'none' });
-    gsap.to(energyRingC.rotation, { z: energyRingC.rotation.z + Math.PI * 2, duration: 22, repeat: -1, ease: 'none' });
-    gsap.to(energyRingA.material, { opacity: 0.34, duration: 2.1, repeat: -1, yoyo: true, ease: 'sine.inOut' });
-    gsap.to(energyRingB.material, { opacity: 0.25, duration: 2.8, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 0.6 });
-
-    const orbitalParticleCount = window.innerWidth <= 700 ? 70 : 120;
+    const orbitalParticleCount = window.innerWidth <= 700 ? 45 : 80;
     const orbitalGeo = new THREE.BufferGeometry();
     const orbitalPos = new Float32Array(orbitalParticleCount * 3);
     for (let i = 0; i < orbitalParticleCount; i++) {
@@ -1753,31 +1697,44 @@
     }
 
     const photoPositions = [
-      { r: 2.8, angle: 0.10, y: 0.70 },
-      { r: 3.5, angle: 0.75, y: -0.10 },
-      { r: 4.3, angle: 1.45, y: 0.55 },
-      { r: 5.0, angle: 2.15, y: -0.25 },
-      { r: 5.7, angle: 2.80, y: 0.65 },
-      { r: 6.2, angle: 3.45, y: -0.10 },
-      { r: 6.0, angle: 4.10, y: 0.55 },
-      { r: 5.5, angle: 4.75, y: -0.20 },
-      { r: 4.7, angle: 5.40, y: 0.60 },
-      { r: 3.8, angle: 6.00, y: -0.05 }
+      { r: 2.9, angle: 0.12, y: 0.72 },
+      { r: 3.4, angle: 0.55, y: -0.08 },
+      { r: 4.0, angle: 0.98, y: 0.52 },
+      { r: 4.6, angle: 1.42, y: -0.22 },
+      { r: 5.1, angle: 1.86, y: 0.62 },
+      { r: 5.5, angle: 2.30, y: -0.06 },
+      { r: 5.8, angle: 2.74, y: 0.50 },
+      { r: 5.9, angle: 3.18, y: -0.20 },
+      { r: 5.7, angle: 3.62, y: 0.62 },
+      { r: 5.3, angle: 4.06, y: -0.06 },
+      { r: 4.9, angle: 4.50, y: 0.52 },
+      { r: 4.5, angle: 4.94, y: -0.22 },
+      { r: 4.1, angle: 5.38, y: 0.64 },
+      { r: 3.6, angle: 5.72, y: -0.05 },
+      { r: 3.1, angle: 6.08, y: 0.48 }
+    ];
+
+    // Tổng cộng 15 khung hình; dùng các ảnh hiện có và lặp lại vài ảnh cuối
+    // để không cần thay đổi cấu trúc dữ liệu lời chúc hiện tại.
+    const photoImageSources = [
+      "Ảnh1.jpg", "Ảnh2.jpg", "Ảnh3.jpg", "Ảnh4.jpg", "Ảnh5.jpg",
+      "Ảnh6.jpg", "Ảnh7.jpg", "Ảnh8.jpg", "Ảnh9.jpg", "Ảnh10.jpg",
+      "Ảnh11.jpg", "Ảnh1.jpg", "Ảnh2.jpg", "Ảnh3.jpg", "Ảnh4.jpg"
     ];
 
     function isMobileLayout() {
       return window.innerWidth <= 700;
     }
 
-    for (let i = 0; i < 10; i++) {
-      createRectangleTexture(wishesData[i].img, (texture) => {
+    for (let i = 0; i < 15; i++) {
+      createRectangleTexture(photoImageSources[i], (texture) => {
         const mat = new THREE.SpriteMaterial({ map: texture, transparent: true });
         const sprite = new THREE.Sprite(mat);
-        // Khung ảnh chữ nhật đứng tỷ lệ 3:4, tăng kích thước khoảng 15% để nổi bật hơn.
-        sprite.scale.set(0.93, 1.24, 1);
+        // Khung ảnh lớn hơn trên mobile để hình không bị quá nhỏ.
+        const mobile = isMobileLayout();
+        sprite.scale.set(mobile ? 1.20 : 1.05, mobile ? 1.60 : 1.40, 1);
 
         const posConfig = photoPositions[i];
-        const mobile = isMobileLayout();
         const xCompression = mobile ? 0.48 : 1;
         const radius = mobile ? Math.min(posConfig.r, 4.15) : posConfig.r;
         sprite.position.x = Math.cos(posConfig.angle) * radius * xCompression;
@@ -1823,6 +1780,32 @@
 
     /* Trạng thái khởi tạo: thư luôn đóng, bất kể vị trí con trỏ hiện tại. */
     setGiftLetterVisible(false);
+
+
+    const giftPrompt = document.getElementById('gift-prompt');
+    const giftPromptWorldPos = new THREE.Vector3();
+
+    function updateGiftPromptPosition() {
+      if (!giftPrompt || !document.getElementById('landing-screen').classList.contains('hidden')) return;
+
+      // Neo lời nhắc vào một điểm ở phía trên chính hình học hộp quà,
+      // thay vì lấy tâm hộp rồi trừ pixel cố định. Cách này ổn định hơn
+      // khi đổi kích thước màn hình hoặc khi hộp quà lơ lửng.
+      giftPromptWorldPos.set(0, 2.18, 0);
+      giftGroup.localToWorld(giftPromptWorldPos);
+      giftScreenPos.copy(giftPromptWorldPos);
+      giftScreenPos.project(camera);
+
+      let x = (giftScreenPos.x * 0.5 + 0.5) * window.innerWidth;
+      let y = (-giftScreenPos.y * 0.5 + 0.5) * window.innerHeight;
+
+      const horizontalPadding = window.innerWidth <= 700 ? 110 : 155;
+      x = Math.min(window.innerWidth - horizontalPadding, Math.max(horizontalPadding, x));
+      y = Math.max(55, Math.min(window.innerHeight - 90, y));
+
+      giftPrompt.style.left = `${x}px`;
+      giftPrompt.style.top = `${y}px`;
+    }
 
     function updateGiftLetterPosition() {
       if (!giftHovered) return;
@@ -1914,7 +1897,7 @@
       return new THREE.CanvasTexture(canvas);
     }
 
-    const floatingHeartsCount = 120;
+    const floatingHeartsCount = 70;
     const floatingGeo = new THREE.BufferGeometry();
     const floatingPos = new Float32Array(floatingHeartsCount * 3);
     const floatSpeed = [];
@@ -1989,9 +1972,14 @@
       cosmicPointerY = (e.clientY / window.innerHeight - 0.5) * 2;
     }, { passive: true });
 
-    function animate() {
+    let lastRenderTime = 0;
+    const targetFrameMs = () => window.innerWidth <= 700 ? 33 : 22;
+
+    function animate(now = performance.now()) {
       requestAnimationFrame(animate);
-      mainGroup.rotation.y += 0.0025;
+      if (now - lastRenderTime < targetFrameMs()) return;
+      lastRenderTime = now;
+      mainGroup.rotation.y += 0.0018;
 
       // Parallax rất nhẹ cho trường sao 3D, khiến nền có cảm giác "trôi" theo người xem.
       deepStars.position.x += (cosmicPointerX * 0.018 - deepStars.position.x) * 0.018;
@@ -2010,8 +1998,8 @@
       }
       floatingGeo.attributes.position.needsUpdate = true;
 
-      controls.update();
       updateGiftLetterPosition();
+      updateGiftPromptPosition();
       renderer.render(scene, camera);
     }
     animate();
@@ -2022,9 +2010,10 @@
     let meteors = [];
     let meteorLastTime = performance.now();
     let meteorSpawnTimer = 0;
+    let meteorLastDraw = 0;
 
     function resizeMeteorCanvas() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       meteorCanvas.width = Math.floor(window.innerWidth * dpr);
       meteorCanvas.height = Math.floor(window.innerHeight * dpr);
       meteorCanvas.style.width = window.innerWidth + 'px';
@@ -2033,7 +2022,7 @@
     }
 
     function makeMeteor(force = false) {
-      if (!force && meteors.length >= (window.innerWidth <= 700 ? 20 : 24)) return;
+      if (!force && meteors.length >= (window.innerWidth <= 700 ? 8 : 12)) return;
 
       const w = window.innerWidth;
       const h = window.innerHeight;
@@ -2041,8 +2030,8 @@
       const x = fromTop ? Math.random() * w * 0.9 + w * 0.08 : w + 40;
       const y = fromTop ? -80 : Math.random() * h * 0.45;
       const angle = (Math.random() * 0.16 + 0.62) * Math.PI;
-      const speed = 520 + Math.random() * 420;
-      const len = 90 + Math.random() * 170;
+      const speed = 460 + Math.random() * 320;
+      const len = 70 + Math.random() * 120;
       const life = 0.75 + Math.random() * 0.75;
       const hue = Math.random() < 0.6
         ? 330 + Math.random() * 28
@@ -2057,7 +2046,7 @@
         life,
         age: 0,
         hue,
-        width: 1.2 + Math.random() * 2.2,
+        width: 1.0 + Math.random() * 1.5,
         pulse: Math.random() * Math.PI * 2
       });
     }
@@ -2085,21 +2074,21 @@
       meteorCtx.lineCap = 'round';
       meteorCtx.strokeStyle = gradient;
       meteorCtx.lineWidth = m.width;
-      meteorCtx.shadowBlur = 14 + Math.sin(m.pulse) * 4;
+      meteorCtx.shadowBlur = 8;
       meteorCtx.shadowColor = `hsla(${m.hue}, 100%, 75%, ${0.9 * fade})`;
       meteorCtx.beginPath();
       meteorCtx.moveTo(tx, ty);
       meteorCtx.lineTo(m.x, m.y);
       meteorCtx.stroke();
 
-      const glow = meteorCtx.createRadialGradient(m.x, m.y, 0, m.x, m.y, 18);
+      const glow = meteorCtx.createRadialGradient(m.x, m.y, 0, m.x, m.y, 12);
       glow.addColorStop(0, `rgba(255,255,255,${0.95 * fade})`);
       glow.addColorStop(0.15, `hsla(${m.hue},100%,92%,${0.8 * fade})`);
       glow.addColorStop(0.45, `hsla(${m.hue},100%,72%,${0.22 * fade})`);
       glow.addColorStop(1, 'rgba(255,255,255,0)');
       meteorCtx.fillStyle = glow;
       meteorCtx.beginPath();
-      meteorCtx.arc(m.x, m.y, 18, 0, Math.PI * 2);
+      meteorCtx.arc(m.x, m.y, 12, 0, Math.PI * 2);
       meteorCtx.fill();
       meteorCtx.restore();
 
@@ -2107,17 +2096,21 @@
     }
 
     function animateMeteors(now) {
-      const dt = Math.min((now - meteorLastTime) / 1000, 0.032);
+      requestAnimationFrame(animateMeteors);
+      const frameGap = window.innerWidth <= 700 ? 33 : 22;
+      if (now - meteorLastDraw < frameGap) return;
+      meteorLastDraw = now;
+      const dt = Math.min((now - meteorLastTime) / 1000, 0.04);
       meteorLastTime = now;
       meteorSpawnTimer += dt;
 
       meteorCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
       // Nhịp xuất hiện ngẫu nhiên để sao băng không chạy liên tục.
-      if (meteorSpawnTimer > 0.10 + Math.random() * 0.24) {
+      if (meteorSpawnTimer > 0.20 + Math.random() * 0.26) {
         makeMeteor();
-        if (Math.random() < 0.62) makeMeteor();
-        if (Math.random() < 0.34) makeMeteor();
+        if (Math.random() < 0.35) makeMeteor();
+        if (Math.random() < 0.12) makeMeteor();
         meteorSpawnTimer = 0;
       }
 
@@ -2125,13 +2118,12 @@
         if (drawMeteor(meteors[i], dt)) meteors.splice(i, 1);
       }
 
-      requestAnimationFrame(animateMeteors);
     }
 
     resizeMeteorCanvas();
     // Cho nhiều sao băng xuất hiện sớm sau khi trang mở để bầu trời có cảm giác sống động.
-    for (let i = 0; i < 12; i++) {
-      setTimeout(() => makeMeteor(true), 160 + i * 150);
+    for (let i = 0; i < 7; i++) {
+      setTimeout(() => makeMeteor(true), 180 + i * 220);
     }
     requestAnimationFrame(animateMeteors);
 
@@ -2153,7 +2145,7 @@
 
     // Giảm chuyển động nếu hệ điều hành của người dùng yêu cầu.
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll('.landing-aurora, .landing-stars span, .space-nebula, .space-galaxy-cloud, .space-aurora-main, .space-aurora-main > span, .space-cosmic-glow, .space-vortex, .space-constellation, .space-stars, .space-dust').forEach(el => {
+      document.querySelectorAll('.landing-aurora, .landing-stars span, .space-nebula, .space-aurora-main, .space-aurora-main > span, .space-cosmic-glow, .space-constellation, .space-stars, .space-dust').forEach(el => {
         el.style.animation = 'none';
       });
     }
